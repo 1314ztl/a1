@@ -1,12 +1,12 @@
 <template>
-	<div class="flex h-screen w-screen overflow-hidden bg-white">
+	<div class="flex h-screen w-screen overflow-hidden bg-gray-100 p-6 gap-6">
 		<!-- 左侧聊天区域 -->
-		<div class="w-1/4 flex flex-col bg-white border-r border-gray-200">
+		<div class="w-1/4 flex flex-col bg-white rounded-xl shadow-lg overflow-hidden">
 			<div class="bg-blue-600 text-white p-4">
 				<h2 class="text-xl font-bold">AI 智能助手</h2>
 			</div>
 			
-			<div class="flex gap-2 p-4">
+			<div class="flex gap-2 p-4 border-b border-gray-100">
 				<button @click="handleTask1" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务1</button>
 				<button @click="handleTask2" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务2</button>
 				<button @click="handleTask12" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务1+2</button>
@@ -18,7 +18,7 @@
 				</div>
 			</div>
 			
-			<div class="border-t p-4">
+			<div class="border-t border-gray-100 p-4">
 				<div class="flex gap-2">
 					<input type="text" v-model="userNeeds" 
 						class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
@@ -33,7 +33,7 @@
 		</div>
 
 		<!-- 中间提示区域 -->
-		<div class="w-1/4 flex items-center justify-center bg-gray-50 relative border-r border-gray-200">
+		<div class="w-1/4 bg-white rounded-xl shadow-lg overflow-hidden relative">
 			<div class="absolute inset-0 flex items-center justify-center">
 				<!-- 初始状态 -->
 				<div v-if="promptState === 'initial'" 
@@ -77,9 +77,9 @@
 		</div>
 		
 		<!-- 右侧组件展示区域 -->
-		<div class="w-2/4 bg-gradient-to-br from-blue-50 to-white relative flex-shrink-0">
-			<div class="absolute inset-0 p-6">
-				<div class="w-full h-full bg-white rounded-xl shadow-lg overflow-hidden relative">
+		<div class="w-2/4 bg-white rounded-xl shadow-lg overflow-hidden relative flex-shrink-0">
+			<div class="absolute inset-0">
+				<div class="w-full h-full relative">
 					<!-- 展示区标题 -->
 					<div class="absolute top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-100 p-4 z-10">
 						<h2 class="text-lg font-medium text-gray-700">智能控制面板</h2>
@@ -312,108 +312,7 @@ const handleTask12 = async () => {
     background: transparent;
 }
 
-/* 添加阴影过渡效果 */
-.shadow-lg {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.shadow-lg:hover {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* 添加背景渐变动画 */
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.bg-gradient-to-br {
-    background: linear-gradient(135deg, rgb(239, 246, 255) 0%, rgb(255, 255, 255) 100%);
-}
-
-.scale-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-:deep(.scale-frame) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100% !important;
-    height: 100% !important;
-    border: none;
-    background: transparent;
-}
-
-/* 调整内容区域的内边距 */
-.absolute.inset-0.pt-16 {
-    padding: 4rem 1rem 1rem 1rem;
-}
-
-/* 确保内容区域不会溢出 */
-.overflow-hidden {
-    overflow: hidden !important;
-}
-
-/* 添加平滑过渡效果 */
-.scale-frame {
-    transition: transform 0.3s ease-in-out;
-}
-
-/* 修改右侧展示区域样式 */
-.w-2\/4 {
-    width: 50%;
-    flex: 0 0 50%;
-    position: relative;
-    border-left: 1px solid #e5e7eb;
-}
-
-/* 确保内容容器正确显示 */
-.absolute.inset-0.p-6 {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1.5rem;
-}
-
-/* 调整圆角和阴影 */
-.rounded-xl {
-    border-radius: 0.75rem;
-    overflow: hidden;
-}
-
-.shadow-lg {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-/* 确保scale-container正确显示 */
-.scale-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-}
-
-/* 添加边框样式 */
-.border {
-    border-width: 1px;
-}
-
-.border-gray-200 {
-    border-color: #e5e7eb;
-}
-
-/* 根容器样式 */
+/* 修改根容器样式 */
 .flex.h-screen.w-screen {
     min-height: 100vh;
     min-width: 100vw;
@@ -422,5 +321,62 @@ const handleTask12 = async () => {
     left: 0;
     right: 0;
     bottom: 0;
+    background-color: #f3f4f6;
+}
+
+/* 统一卡片样式 */
+.rounded-xl {
+    border-radius: 1rem;
+}
+
+.shadow-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.shadow-lg:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* 调整间距 */
+.gap-6 {
+    gap: 1.5rem;
+}
+
+.p-6 {
+    padding: 1.5rem;
+}
+
+/* 确保内容区域样式统一 */
+.absolute.inset-0 {
+    padding: 0;
+}
+
+/* 优化滚动条样式 */
+.overflow-y-auto {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 3px;
+}
+
+/* 确保背景色统一 */
+.bg-white {
+    background-color: #ffffff;
+}
+
+.bg-gray-100 {
+    background-color: #f3f4f6;
 }
 </style>
