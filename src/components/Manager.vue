@@ -224,7 +224,6 @@ const task1 = ref(async () => {
 	if (!userNeeds.value.trim()) {
 		return;
 	}
-	hasUserInput.value = true;
 	let promote1 = task1Promote.value+state_data_instance.value.getSense().house.getFurnitureDescribeInEveryRoom();
 	promote1=promote1.replace(userRequire,userNeeds.value);
 
@@ -238,15 +237,11 @@ const task1 = ref(async () => {
 			task2PromoteAdd.value="";
 			jsonResponse.result.forEach((r) => {
 				if (r.furniture) {
-                    //
-                    task2PromoteAdd.value+=("\n在"+r.room_name+"房间,有以下家具\n");
-
+					task2PromoteAdd.value+=("\n在"+r.room_name+"房间,有以下家具\n");
 					r.furniture.forEach((f) => {
 						const furnitureString = Sense.furnitureToString(sense.find({ r: r.room_name, f: f }));
 						if (furnitureString !== undefined) {
-                            //
-							 task2PromoteAdd.value+=furnitureString+"\n";
-
+							task2PromoteAdd.value+=furnitureString+"\n";
 						} else {
 							console.warn(`Furniture not found: ${f}`);
 						}
@@ -255,7 +250,6 @@ const task1 = ref(async () => {
 					console.warn(`No furniture found for room: ${r.room_name}`);
 				}
 			});
-
 		} catch (error) {
 			console.error('Error processing response:', error);
 		}
@@ -263,88 +257,93 @@ const task1 = ref(async () => {
 });
 
 onMounted(() => {
-    window.addEventListener('iframeLoaded', () => {
-        iframeLoaded.value = true;
-        if (promptState.value === 'loading') {
-            promptState.value = 'done';
-        }
-    });
+    window.removeEventListener('iframeLoaded', () => {});
 });
 
 const task2 = ref(async () => {
 	if (!userNeeds.value.trim()) {
 		return;
 	}
-	hasUserInput.value = true;
 	iframeLoaded.value = false;
 	let promote2 = task2Promote.value + task2PromoteAdd.value + task1PromoteAdd2.value;
 	promote2 = promote2.replace(userRequire, userNeeds.value);
 	console.log(promote2);
 
-	await builder.value.call_api_multiple(promote2, (result) => {
-		let v = result.value;
-		
-		const htmlStartIndex = v.indexOf(htmlBegin) + htmlBegin.length;
-		const htmlEndIndex = v.indexOf(htmlEnd);
+	return new Promise((resolve) => {
+		builder.value.call_api_multiple(promote2, (result) => {
+			let v = result.value;
+			
+			const htmlStartIndex = v.indexOf(htmlBegin) + htmlBegin.length;
+			const htmlEndIndex = v.indexOf(htmlEnd);
 
-		const cssStartIndex = v.indexOf(cssBegin) + cssBegin.length;
-		const cssEndIndex = v.indexOf(cssEnd);
+			const cssStartIndex = v.indexOf(cssBegin) + cssBegin.length;
+			const cssEndIndex = v.indexOf(cssEnd);
 
-		const jsStartIndex = v.indexOf(jsBegin) + jsBegin.length;
-		const jsEndIndex = v.indexOf(jsEnd);
+			const jsStartIndex = v.indexOf(jsBegin) + jsBegin.length;
+			const jsEndIndex = v.indexOf(jsEnd);
 
-		let html = v.substring(htmlStartIndex, htmlEndIndex);
-		let css = v.substring(cssStartIndex, cssEndIndex);
-		let js = v.substring(jsStartIndex, jsEndIndex);
+			let html = v.substring(htmlStartIndex, htmlEndIndex);
+			let css = v.substring(cssStartIndex, cssEndIndex);
+			let js = v.substring(jsStartIndex, jsEndIndex);
 
-		window.theAiHtml = html;
-		window.theAiCss = css;
-		window.theAiJs = js;
+			window.theAiHtml = html;
+			window.theAiCss = css;
+			window.theAiJs = js;
 
-		suchIframe.value = suchIframe.value.replace(/\s+$/, '') + ' ';
-		
-		setTimeout(() => {
-			if (!iframeLoaded.value) {
-				console.warn('iframe加载超时');
-				promptState.value = 'done';
-			}
-		}, 5000);
-	}, console.log);
+			suchIframe.value = suchIframe.value.replace(/\s+$/, '') + ' ';
+			
+			const timeoutId = setTimeout(() => {
+				if (!iframeLoaded.value) {
+					console.warn('iframe加载超时');
+					iframeLoaded.value = true;
+					resolve();
+				}
+			}, 5000);
+
+			const handleLoad = () => {
+				clearTimeout(timeoutId);
+				iframeLoaded.value = true;
+				resolve();
+			};
+
+			window.addEventListener('iframeLoaded', handleLoad, { once: true });
+		}, console.log);
+	});
 });
 
-const task12 = ref( async()=>{
+const task12 = ref(async () => {
 	await task1.value();
 	await task2.value();
+	hasUserInput.value = true;
 });
 
 const handleTask1 = async () => {
 	if (!userNeeds.value.trim()) {
 		return;
 	}
-	hasUserInput.value = true;
 	promptState.value = 'loading';
 	await task1.value();
 	promptState.value = 'done';
+	hasUserInput.value = true;
 };
 
 const handleTask2 = async () => {
 	if (!userNeeds.value.trim()) {
 		return;
 	}
-	hasUserInput.value = true;
 	promptState.value = 'loading';
-	iframeLoaded.value = false;
 	await task2.value();
+	hasUserInput.value = true;
+	promptState.value = 'done';
 };
 
 const handleTask12 = async () => {
 	if (!userNeeds.value.trim()) {
 		return;
 	}
-	hasUserInput.value = true;
 	promptState.value = 'loading';
-	iframeLoaded.value = false;
 	await task12.value();
+	promptState.value = 'done';
 };
 
 const resetView = () => {
