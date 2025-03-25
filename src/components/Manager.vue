@@ -1,7 +1,7 @@
 <template>
-	<div class="flex h-screen w-full bg-gray-100">
+	<div class="flex h-full w-full">
 		<!-- 左侧聊天区域 -->
-		<div class="w-1/2 flex flex-col bg-white shadow-lg">
+		<div class="w-1/2 flex flex-col bg-white">
 			<div class="bg-blue-600 text-white p-4">
 				<h2 class="text-xl font-bold">AI 智能助手</h2>
 			</div>
@@ -33,8 +33,8 @@
 		</div>
 		
 		<!-- 右侧组件展示区域 -->
-		<div class="w-1/2 p-6 bg-white shadow-lg overflow-y-auto">
-			<div ref="result" class="h-full w-full" v-html="suchIframe"></div>
+		<div class="w-1/2 bg-white overflow-hidden">
+			<div ref="result" class="w-full h-full" style="height: 150%;" v-html="suchIframe"></div>
 		</div>
 	</div>
 </template>
@@ -57,7 +57,7 @@ provide('build_component', ref(true));
 
 
 
-const suchIframe = ref(`<iframe src="http://localhost:5173/userView.html" class="w-full h-full border-4 border-blue-200 rounded-lg" frameborder="0"></iframe>`);
+const suchIframe = ref(`<iframe src="http://localhost:5173/userView.html" style="width: 150%; height: 100%; border: 4px solid rgba(100, 150, 255, 0.3); border-radius: 8px; transform: scale(0.67); transform-origin: 0 0;" frameborder="0"></iframe>`);
 
 const result = ref(null);
 const userNeeds = ref("");

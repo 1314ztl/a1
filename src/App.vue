@@ -10,16 +10,33 @@ const render = ref(()=>{
 </script>
 
 <template>
-  <header></header>
-  <main>
-    <div id="app" style="height: 100vh; width: 100vw;">
-      <Manager></Manager>
-      <!-- <Conversion_page></Conversion_page> -->
-    </div>
-  </main>
+  <div class="w-screen h-screen m-0 p-0 overflow-hidden">
+    <Manager></Manager>
+    <!-- <Conversion_page></Conversion_page> -->
+  </div>
 </template>
 
-<style scoped>
+<style>
+/* 重置默认样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 </style>
 
 
