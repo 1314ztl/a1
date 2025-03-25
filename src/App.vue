@@ -10,8 +10,8 @@ const render = ref(()=>{
 </script>
 
 <template>
-  <div class="w-screen h-screen m-0 p-0 overflow-hidden">
-    <Manager></Manager>
+  <div class="h-screen w-screen overflow-hidden">
+    <Manager class="h-full w-full"></Manager>
     <!-- <Conversion_page></Conversion_page> -->
   </div>
 </template>
@@ -24,15 +24,9 @@ const render = ref(()=>{
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-#app {
-  width: 100vw;
+html, body, #app {
   height: 100vh;
+  width: 100vw;
   margin: 0;
   padding: 0;
   overflow: hidden;

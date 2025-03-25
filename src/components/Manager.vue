@@ -1,15 +1,15 @@
 <template>
-	<div class="flex h-full w-full">
+	<div class="flex h-screen w-screen overflow-hidden">
 		<!-- 左侧聊天区域 -->
-		<div class="w-1/2 flex flex-col bg-white">
+		<div class="w-1/4 flex flex-col bg-white border-r border-gray-200">
 			<div class="bg-blue-600 text-white p-4">
 				<h2 class="text-xl font-bold">AI 智能助手</h2>
 			</div>
 			
 			<div class="flex gap-2 p-4">
-				<button @click="task1" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务1</button>
-				<button @click="task2" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务2</button>
-				<button @click="task12" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务1+2</button>
+				<button @click="handleTask1" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务1</button>
+				<button @click="handleTask2" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务2</button>
+				<button @click="handleTask12" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务1+2</button>
 			</div>
 			
 			<div class="flex-1 overflow-y-auto p-4" id="chatMessages">
@@ -23,25 +23,67 @@
 					<input type="text" v-model="userNeeds" 
 						class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
 						placeholder="请输入您的需求..." 
-						@keyup.enter="task12">
-					<button @click="task12" 
+						@keyup.enter="handleTask12">
+					<button @click="handleTask12" 
 						class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
 						发送
 					</button>
 				</div>
 			</div>
 		</div>
+
+		<!-- 中间提示区域 -->
+		<div class="w-1/4 flex items-center justify-center bg-gray-50 relative border-r border-gray-200">
+			<div class="absolute inset-0 flex items-center justify-center">
+				<!-- 初始状态 -->
+				<div v-if="promptState === 'initial'" 
+					class="text-center transform transition-all duration-500 ease-in-out">
+					<div class="flex flex-col items-center gap-4">
+						<div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center">
+							<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+							</svg>
+						</div>
+						<p class="text-gray-600 font-medium">请输入需求并点击按钮<br/>生成智能控制组件</p>
+					</div>
+				</div>
+
+				<!-- 加载状态 -->
+				<div v-if="promptState === 'loading'" 
+					class="text-center transform transition-all duration-500 ease-in-out">
+					<div class="flex flex-col items-center gap-4">
+						<div class="w-16 h-16 relative">
+							<div class="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
+							<div class="absolute inset-0 border-4 border-blue-500 rounded-full animate-spin" 
+								style="border-top-color: transparent"></div>
+						</div>
+						<p class="text-gray-600 font-medium">AI 正在生成控制组件...</p>
+					</div>
+				</div>
+
+				<!-- 完成状态 -->
+				<div v-if="promptState === 'done'" 
+					class="text-center transform transition-all duration-500 ease-in-out">
+					<div class="flex flex-col items-center gap-4">
+						<div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
+							<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+							</svg>
+						</div>
+						<p class="text-gray-600 font-medium">组件生成完成！<br/>请查看右侧面板</p>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<!-- 右侧组件展示区域 -->
-		<div class="w-1/2 bg-white overflow-hidden">
-			<div ref="result" class="w-full h-full" style="height: 150%;" v-html="suchIframe"></div>
+		<div class="w-2/4 bg-white overflow-hidden">
+			<div ref="result" class="w-full h-screen" v-html="suchIframe"></div>
 		</div>
 	</div>
 </template>
 
-<script  setup>
-
-//import { compile, defineComponent } from 'vue';
+<script setup>
 import raceAsync from '../ts/asyncRace';
 import { provide, ref, onMounted } from 'vue';
 import ComponentBuilder from '../ts/ComponentBuilder';
@@ -51,17 +93,15 @@ import IntSlider from './states_test/IntSlider.vue';
 import BoolButton from './states_test/BoolButton.vue';
 import EnumList from './states_test/EnumList.vue';
 
-//import RuntimeHtml from './basicComponent/runtimeHtml.vue';
 provide('isDebug', ref(true));
 provide('build_component', ref(true));
 
+const promptState = ref('initial');
 
-
-const suchIframe = ref(`<iframe src="http://localhost:5173/userView.html" style="width: 150%; height: 100%; border: 4px solid rgba(100, 150, 255, 0.3); border-radius: 8px; transform: scale(0.67); transform-origin: 0 0;" frameborder="0"></iframe>`);
+const suchIframe = ref(`<iframe src="http://localhost:5173/userView.html" style="width: 200%; height: 150vh; border: 2px solid rgba(100, 150, 255, 0.3); border-radius: 8px; transform: scale(0.5); transform-origin: 0 0;" frameborder="0"></iframe>`);
 
 const result = ref(null);
 const userNeeds = ref("");
-
 
 const JSONBegin  = "<jsonBegin>";
 const JSONEnd = "<jsonEnd>";
@@ -139,19 +179,6 @@ const task2Result = ref(null);
 
 const task2Done = ref(false);
 
-// const compiler = ref((html:string)=>{
-//     var code = compile(html);
-//     let dynamicComponent = defineComponent({
-//     render:code,
-
-//     components: { IntSlider,BoolButton,EnumList },
-//     methods: {
-
-//     }
-//     });s
-//     return dynamicComponent;
-// });
-
 const task1 = ref(async () => {
 	let promote1 = task1Promote.value+state_data_instance.value.getSense().house.getFurnitureDescribeInEveryRoom();
 	promote1=promote1.replace(userRequire,userNeeds.value);
@@ -223,4 +250,53 @@ const task12 = ref( async()=>{
 	await task1.value();
 	await task2.value();
 });
+
+// 包装任务处理函数
+const handleTask1 = async () => {
+    promptState.value = 'loading';
+    await task1.value();
+    promptState.value = 'done';
+};
+
+const handleTask2 = async () => {
+    promptState.value = 'loading';
+    await task2.value();
+    promptState.value = 'done';
+};
+
+const handleTask12 = async () => {
+    promptState.value = 'loading';
+    await task12.value();
+    promptState.value = 'done';
+};
 </script>
+
+<style scoped>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-enter-active {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+:deep(iframe) {
+    display: block;
+    width: 200%;
+    height: 150vh;
+    border: 2px solid rgba(100, 150, 255, 0.3);
+    border-radius: 8px;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+}
+</style>
