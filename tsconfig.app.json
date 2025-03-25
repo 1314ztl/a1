@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": ["es2021", "dom"], // 添加 es2021
+    "target": "es2021"  
+  }
+}

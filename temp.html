@@ -1,0 +1,91 @@
+你需要使用html和tailwindcss完成一个网页片段的构建,你生成的代码将会被v-html
+直接作为页面的一部分,你不可以使用vue语法,此代码片段服务于智能家具管理场景,用户当前的需求是:"获取一个控制房间内所有灯的面板"
+经过分析,以下是你可以使用的信息:
+
+在客厅房间,有以下家具
+Furniture Name: 吊灯
+Description: undefined
+States:
+State API Name: chandelier_power_living_room, Description: 开启或关闭吊灯, Type: bool 
+
+State API Name: chandelier_brightness_living_room, Description: 调节亮度, Type: int 
+
+
+在卧室房间,有以下家具
+Furniture Name: 吊灯
+Description: undefined
+States:
+State API Name: chandelier_power_bedroom, Description: 开启或关闭吊灯, Type: bool 
+
+State API Name: chandelier_brightness_bedroom, Description: 调节亮度, Type: int 
+
+Furniture Name: 床头灯
+Description: undefined
+States:
+State API Name: bedside_lamp_power_bedroom, Description: 开启或关闭床头灯, Type: bool 
+
+State API Name: bedside_lamp_brightness_bedroom, Description: 调节亮度, Type: int 
+
+
+在厨房房间,有以下家具
+
+在浴室房间,有以下家具
+
+在儿童房房间,有以下家具
+Furniture Name: 吊灯
+Description: undefined
+States:
+State API Name: chandelier_power_kids_room, Description: 开启或关闭吊灯, Type: bool 
+
+State API Name: chandelier_brightness_kids_room, Description: 调节亮度, Type: int 
+
+
+在书房房间,有以下家具
+Furniture Name: 吊灯
+Description: undefined
+States:
+State API Name: chandelier_power_study, Description: 开启或关闭吊灯, Type: bool 
+
+State API Name: chandelier_brightness_study, Description: 调节亮度, Type: int 
+
+
+在中性空间房间,有以下家具
+
+其中,State API Name是对数据的抽象,作为数据的唯一标识符使用,
+你应当通过<ValueComponent dataApiName="State API Name value">使用他们,
+根据State API Name对应项的type,valueComponent应被替换为BoolButton,IntSlider,EnumList,
+你可以将这三个理解为普通的button,input type="range",和select标签,但他们封装的对数据的处理逻辑,
+所以他们应当是自闭合标签,
+你构建的页面应当形如htmlBegin~<div name="AIHtmlRoot"><div class="...." style="..."><BoolButton dataApiName="chandelier_power_living_room" class="..."/></div><div class="...." style="..."><IntSlider....></div></div>~htmlEnd
+硬性要求只有<div name="AIHtmlRoot">必须作为这个页面的根节点,代码部分必须包裹在htmlBegin~  ~htmlEnd结构中,余下可自由发挥,你可以先对需求和场景进行分析,然后再回答
+  
+  
+  用户尝试获取一个控制房间内所有灯的面板,以下哪些家居是完成这个需求所需要的,然后指出这个界面的基本结构,界面的最小单位是对单个家具单个属性的控制组件,请以
+  jsonBegin>
+  {
+    "result": [
+      {
+        "room_name": "房间名",
+        "furniture": ["家居名1", "家居名2"]
+      },
+      {
+        "next": "..."
+      }
+    ]
+  }
+  <jsonEnd的格式回复,以下是家居列表 :
+  在 "客厅" 房间,我们有 "智能电视, 空调, 电风扇, 吊灯, 音响" 
+  在 "卧室" 房间,我们有 "电动窗帘, 空调, 吊灯, 加湿器, 床头灯, 电视, 音响" 
+  在 "厨房" 房间,我们有 "电磁炉, 电饭煲, 电烤箱, 抽油烟机" 
+  在 "浴室" 房间,我们有 "热水器, 浴霸, 洗衣机, 智能马桶" 
+  在 "儿童房" 房间,我们有 "空调, 吊灯, 电视, 音响, 监控探头" 
+  在 "书房" 房间,我们有 "空调, 吊灯, 电脑, 路由器, 打印机" 
+  在 "中性空间" 房间,我们有 "智能门禁" 在 "客厅" 房间,我们有 "智能电视, 空调, 电风扇, 吊灯, 音响" 
+  在 "卧室" 房间,我们有 "电动窗帘, 空调, 吊灯, 加湿器, 床头灯, 电视, 音响" 
+  在 "厨房" 房间,我们有 "电磁炉, 电饭煲, 电烤箱, 抽油烟机" 
+  在 "浴室" 房间,我们有 "热水器, 浴霸, 洗衣机, 智能马桶" 
+  在 "儿童房" 房间,我们有 "空调, 吊灯, 电视, 音响, 监控探头" 
+  在 "书房" 房间,我们有 "空调, 吊灯, 电脑, 路由器, 打印机" 
+  在 "中性空间" 房间,我们有 "智能门禁" 
+
+  "content": "### 需求分析\n\n用户需要一个控制房间内所有灯的面板。根据提供的信息，房间内的灯具包括：\n\n- **客厅**：吊灯（可开关和调节亮度）\n- **卧室**：吊灯（可开关和调节亮度）、床头灯（可开关和调节亮度）\n- **儿童房**：吊灯（可开关和调节亮度）\n- **书房**：吊灯（可开关和调节亮度）\n\n每个灯具都有两个状态：\n1. **开关状态**（`power`）：布尔类型，使用 `BoolButton` 组件。\n2. **亮度调节**（`brightness`）：整数类型，使用 `IntSlider` 组件。\n\n### 设计思路\n\n1. **布局**：每个房间的灯具控制面板可以放在一个卡片中，卡片标题为房间名称，内容为灯具的控制组件。\n2. **组件选择**：\n   - `BoolButton`：用于开关灯具。\n   - `IntSlider`：用于调节灯具亮度。\n3. **样式**：使用 Tailwind CSS 实现简洁的 UI 设计。\n\n### 代码实现\n\n```html\nhtmlBegin~\n<div name=\"AIHtmlRoot\" class=\"p-4 bg-gray-100\">\n  <!-- 客厅 -->\n  <div class=\"mb-6 p-4 bg-white rounded-lg shadow\">\n    <h2 class=\"text-lg font-semibold mb-4\">客厅</h2>\n    <div class=\"space-y-4\">\n      <!-- 吊灯 -->\n      <div>\n        <h3 class=\"text-md font-medium mb-2\">吊灯</h3>\n        <div class=\"flex items-center space-x-4\">\n          <BoolButton dataApiName=\"chandelier_power_living_room\" class=\"px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600\" />\n          <IntSlider dataApiName=\"chandelier_brightness_living_room\" class=\"w-full\" />\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <!-- 卧室 -->\n  <div class=\"mb-6 p-4 bg-white rounded-lg shadow\">\n    <h2 class=\"text-lg font-semibold mb-4\">卧室</h2>\n    <div class=\"space-y-4\">\n      <!-- 吊灯 -->\n      <div>\n        <h3 class=\"text-md font-medium mb-2\">吊灯</h3>\n        <div class=\"flex items-center space-x-4\">\n          <BoolButton dataApiName=\"chandelier_power_bedroom\" class=\"px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600\" />\n          <IntSlider dataApiName=\"chandelier_brightness_bedroom\" class=\"w-full\" />\n        </div>\n      </div>\n      <!-- 床头灯 -->\n      <div>\n        <h3 class=\"text-md font-medium mb-2\">床头灯</h3>\n        <div class=\"flex items-center space-x-4\">\n          <BoolButton dataApiName=\"bedside_lamp_power_bedroom\" class=\"px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600\" />\n          <IntSlider dataApiName=\"bedside_lamp_brightness_bedroom\" class=\"w-full\" />\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <!-- 儿童房 -->\n  <div class=\"mb-6 p-4 bg-white rounded-lg shadow\">\n    <h2 class=\"text-lg font-semibold mb-4\">儿童房</h2>\n    <div class=\"space-y-4\">\n      <!-- 吊灯 -->\n      <div>\n        <h3 class=\"text-md font-medium mb-2\">吊灯</h3>\n        <div class=\"flex items-center space-x-4\">\n          <BoolButton dataApiName=\"chandelier_power_kids_room\" class=\"px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600\" />\n          <IntSlider dataApiName=\"chandelier_brightness_kids_room\" class=\"w-full\" />\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <!-- 书房 -->\n  <div class=\"mb-6 p-4 bg-white rounded-lg shadow\">\n    <h2 class=\"text-lg font-semibold mb-4\">书房</h2>\n    <div class=\"space-y-4\">\n      <!-- 吊灯 -->\n      <div>\n        <h3 class=\"text-md font-medium mb-2\">吊灯</h3>\n        <div class=\"flex items-center space-x-4\">\n          <BoolButton dataApiName=\"chandelier_power_study\" class=\"px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600\" />\n          <IntSlider dataApiName=\"chandelier_brightness_study\" class=\"w-full\" />\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n~htmlEnd\n```\n\n### 代码说明\n\n1. **根节点**：`<div name=\"AIHtmlRoot\">` 作为根节点，符合硬性要求。\n2. **房间卡片**：每个房间的灯具控制面板放在一个卡片中，卡片使用 Tailwind CSS 的 `bg-white`, `rounded-lg`, `shadow` 等类实现简洁的 UI 设计。\n3. **灯具控制**：每个灯具的控制组件（`BoolButton` 和 `IntSlider`）放在一个 `div` 中，使用 `flex` 布局使其水平排列。\n4. **样式**：使用 Tailwind CSS 的类名实现样式，如 `bg-blue-500` 表示按钮的背景色，`hover:bg-blue-600` 表示鼠标悬停时的背景色变化。\n\n### 总结\n\n该代码片段实现了用户需求，提供了一个简洁、易用的控制面板，用于管理房间内的所有灯具。通过 Tailwind CSS 的样式类，UI 设计简洁美观，且代码结构清晰，易于维护。"
