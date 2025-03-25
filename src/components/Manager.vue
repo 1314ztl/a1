@@ -6,12 +6,6 @@
 				<h2 class="text-xl font-bold">AI 智能助手</h2>
 			</div>
 			
-			<div class="flex gap-2 p-4 border-b border-gray-100">
-				<button @click="handleTask1" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务1</button>
-				<button @click="handleTask2" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务2</button>
-				<button @click="handleTask12" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">任务1+2</button>
-			</div>
-			
 			<div class="flex-1 overflow-y-auto p-4" id="chatMessages">
 				<div class="mb-4 p-3 rounded-lg bg-gray-100 text-gray-800 max-w-[80%]">
 					您好！我是智能家居助手，请告诉我您需要什么帮助？
@@ -19,15 +13,25 @@
 			</div>
 			
 			<div class="border-t border-gray-100 p-4">
-				<div class="flex gap-2">
+				<div class="flex flex-col gap-3">
 					<input type="text" v-model="userNeeds" 
-						class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+						class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
 						placeholder="请输入您的需求..." 
 						@keyup.enter="handleTask12">
-					<button @click="handleTask12" 
-						class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-						发送
-					</button>
+					<div class="flex gap-2">
+						<button @click="handleTask1" 
+							class="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm">
+							分析
+						</button>
+						<button @click="handleTask2" 
+							class="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm">
+							生成
+						</button>
+						<button @click="handleTask12" 
+							class="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm">
+							一键完成
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -87,7 +91,27 @@
 					
 					<!-- 内容区域 -->
 					<div class="absolute inset-0 pt-16">
-						<div class="w-full h-full relative scale-container">
+						<!-- 默认提示界面 -->
+						<div v-if="!hasUserInput" class="w-full h-full flex items-center justify-center">
+							<div class="text-center p-8">
+								<div class="w-20 h-20 mx-auto mb-6 bg-blue-50 rounded-full flex items-center justify-center">
+									<svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+									</svg>
+								</div>
+								<h3 class="text-xl font-medium text-gray-900 mb-2">欢迎使用智能控制面板</h3>
+								<p class="text-gray-500 mb-4">请在左侧输入您的控制需求<br/>例如："我要控制客厅的灯"</p>
+								<div class="space-y-2 text-sm text-gray-400">
+									<p>支持的功能：</p>
+									<p>✓ 灯光控制（开关、亮度）</p>
+									<p>✓ 空调控制（温度、模式）</p>
+									<p>✓ 窗帘控制（开合）</p>
+									<p>✓ 更多设备支持中...</p>
+								</div>
+							</div>
+						</div>
+						<!-- 实际控制界面 -->
+						<div v-else class="w-full h-full relative scale-container">
 							<div ref="result" class="absolute inset-0" v-html="suchIframe"></div>
 						</div>
 					</div>
@@ -112,10 +136,13 @@ provide('build_component', ref(true));
 
 const promptState = ref('initial');
 
-const suchIframe = ref(`<iframe src="http://localhost:5173/userView.html" class="scale-frame" style="width: 100%; height: 100%; border: none;" frameborder="0"></iframe>`);
+const iframeLoaded = ref(false);
+
+const suchIframe = ref(`<iframe src="http://localhost:5173/userView.html" class="scale-frame" style="width: 100%; height: 100%; border: none; -webkit-font-smoothing: antialiased;" frameborder="0" onload="window.dispatchEvent(new Event('iframeLoaded'))"></iframe>`);
 
 const result = ref(null);
 const userNeeds = ref("");
+const hasUserInput = ref(false);
 
 const JSONBegin  = "<jsonBegin>";
 const JSONEnd = "<jsonEnd>";
@@ -194,6 +221,10 @@ const task2Result = ref(null);
 const task2Done = ref(false);
 
 const task1 = ref(async () => {
+	if (!userNeeds.value.trim()) {
+		return;
+	}
+	hasUserInput.value = true;
 	let promote1 = task1Promote.value+state_data_instance.value.getSense().house.getFurnitureDescribeInEveryRoom();
 	promote1=promote1.replace(userRequire,userNeeds.value);
 
@@ -230,13 +261,28 @@ const task1 = ref(async () => {
 		}
 	});
 });
+
+onMounted(() => {
+    window.addEventListener('iframeLoaded', () => {
+        iframeLoaded.value = true;
+        if (promptState.value === 'loading') {
+            promptState.value = 'done';
+        }
+    });
+});
+
 const task2 = ref(async () => {
+	if (!userNeeds.value.trim()) {
+		return;
+	}
+	hasUserInput.value = true;
+	iframeLoaded.value = false;
 	let promote2 = task2Promote.value + task2PromoteAdd.value + task1PromoteAdd2.value;
-	promote2=promote2.replace(userRequire,userNeeds.value);
+	promote2 = promote2.replace(userRequire, userNeeds.value);
 	console.log(promote2);
 
 	await builder.value.call_api_multiple(promote2, (result) => {
-		let v  = result.value;
+		let v = result.value;
 		
 		const htmlStartIndex = v.indexOf(htmlBegin) + htmlBegin.length;
 		const htmlEndIndex = v.indexOf(htmlEnd);
@@ -255,8 +301,14 @@ const task2 = ref(async () => {
 		window.theAiCss = css;
 		window.theAiJs = js;
 
-		suchIframe.value += " ";
-		console.log(result);
+		suchIframe.value = suchIframe.value.replace(/\s+$/, '') + ' ';
+		
+		setTimeout(() => {
+			if (!iframeLoaded.value) {
+				console.warn('iframe加载超时');
+				promptState.value = 'done';
+			}
+		}, 5000);
 	}, console.log);
 });
 
@@ -265,23 +317,41 @@ const task12 = ref( async()=>{
 	await task2.value();
 });
 
-// 包装任务处理函数
 const handleTask1 = async () => {
-    promptState.value = 'loading';
-    await task1.value();
-    promptState.value = 'done';
+	if (!userNeeds.value.trim()) {
+		return;
+	}
+	hasUserInput.value = true;
+	promptState.value = 'loading';
+	await task1.value();
+	promptState.value = 'done';
 };
 
 const handleTask2 = async () => {
-    promptState.value = 'loading';
-    await task2.value();
-    promptState.value = 'done';
+	if (!userNeeds.value.trim()) {
+		return;
+	}
+	hasUserInput.value = true;
+	promptState.value = 'loading';
+	iframeLoaded.value = false;
+	await task2.value();
 };
 
 const handleTask12 = async () => {
-    promptState.value = 'loading';
-    await task12.value();
-    promptState.value = 'done';
+	if (!userNeeds.value.trim()) {
+		return;
+	}
+	hasUserInput.value = true;
+	promptState.value = 'loading';
+	iframeLoaded.value = false;
+	await task12.value();
+};
+
+const resetView = () => {
+	hasUserInput.value = false;
+	userNeeds.value = '';
+	promptState.value = 'initial';
+	iframeLoaded.value = false;
 };
 </script>
 
@@ -304,12 +374,50 @@ const handleTask12 = async () => {
     animation: spin 1s linear infinite;
 }
 
+/* 改善iframe内容显示 */
 :deep(iframe) {
     display: block;
     width: 100%;
     height: 100%;
     border: none;
     background: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 优化展示区文字样式 */
+.w-2\/4 {
+    width: 50%;
+    flex: 0 0 50%;
+    position: relative;
+    border-left: 1px solid #e5e7eb;
+}
+
+/* 确保内容清晰显示 */
+.scale-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+/* 添加文字渲染优化 */
+.absolute.inset-0 {
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 优化展示区标题样式 */
+.bg-white\/80.backdrop-blur-sm {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.text-lg.font-medium.text-gray-700 {
+    letter-spacing: 0.01em;
 }
 
 /* 修改根容器样式 */
@@ -347,30 +455,6 @@ const handleTask12 = async () => {
     padding: 1.5rem;
 }
 
-/* 确保内容区域样式统一 */
-.absolute.inset-0 {
-    padding: 0;
-}
-
-/* 优化滚动条样式 */
-.overflow-y-auto {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
-}
-
-.overflow-y-auto::-webkit-scrollbar {
-    width: 6px;
-}
-
-.overflow-y-auto::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.overflow-y-auto::-webkit-scrollbar-thumb {
-    background-color: rgba(156, 163, 175, 0.5);
-    border-radius: 3px;
-}
-
 /* 确保背景色统一 */
 .bg-white {
     background-color: #ffffff;
@@ -378,5 +462,62 @@ const handleTask12 = async () => {
 
 .bg-gray-100 {
     background-color: #f3f4f6;
+}
+
+/* 按钮样式优化 */
+button {
+    font-weight: 500;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 输入框样式优化 */
+input {
+    height: 42px;
+}
+
+/* 底部操作区样式 */
+.border-t {
+    background-color: #fafafa;
+}
+
+/* 确保按钮文字居中 */
+.flex.gap-2 {
+    justify-content: space-between;
+}
+
+/* 按钮悬浮效果 */
+button:hover {
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* 默认提示界面样式 */
+.space-y-2 > * + * {
+    margin-top: 0.5rem;
+}
+
+/* 图标动画 */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.w-20 {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+/* 文字渐变效果 */
+.text-gray-900 {
+    background: linear-gradient(120deg, #2563eb, #1d4ed8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 </style>
