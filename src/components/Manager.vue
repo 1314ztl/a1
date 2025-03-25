@@ -595,15 +595,19 @@ button:active {
 
 /* 新增卡片悬浮效果 */
 .card-hover {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
 }
 
 .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateY(-6px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.12),
+        0 4px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.98);
 }
 
 /* 自定义滚动条 */
@@ -649,8 +653,9 @@ button:active {
 }
 
 .input-style:focus {
-    background: white;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+    background: rgba(255, 255, 255, 0.98);
 }
 
 /* 按钮样式优化 */
@@ -660,12 +665,13 @@ button:active {
 }
 
 .button-style:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* 加载动画优化 */
 .animate-spin-slow {
-    animation: spin 2s linear infinite;
+    animation: spin 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 /* 径向渐变背景 */
@@ -696,14 +702,18 @@ button:active {
 
 /* 修改背景渐变 */
 .bg-gradient {
-    background: linear-gradient(165deg, #8B5CF6 0%, #3B82F6 50%, #2563EB 100%);
+    background: linear-gradient(135deg, 
+        rgba(139, 92, 246, 0.92) 0%, 
+        rgba(59, 130, 246, 0.88) 50%, 
+        rgba(37, 99, 235, 0.84) 100%
+    );
     background-attachment: fixed;
 }
 
 /* 优化卡片透明度和模糊效果 */
-.bg-white\/90 {
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
+.bg-white\/95 {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
 }
 
 /* 添加阴影过渡效果 */
@@ -757,24 +767,28 @@ button:active {
 /* 背景渐变优化 */
 .bg-gradient {
     background: linear-gradient(135deg, 
-        rgba(139, 92, 246, 0.95) 0%, 
-        rgba(59, 130, 246, 0.9) 50%, 
-        rgba(37, 99, 235, 0.85) 100%
+        rgba(139, 92, 246, 0.92) 0%, 
+        rgba(59, 130, 246, 0.88) 50%, 
+        rgba(37, 99, 235, 0.84) 100%
     );
     background-attachment: fixed;
 }
 
 /* 卡片悬浮效果增强 */
 .card-hover {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
 }
 
 .card-hover:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    transform: translateY(-6px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.12),
+        0 4px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.98);
 }
 
 /* 按钮样式增强 */
@@ -813,9 +827,9 @@ button:active {
 }
 
 .input-style:focus {
-    background: white;
+    transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.98);
 }
 
 /* 消息气泡效果增强 */
@@ -871,7 +885,19 @@ button:active {
 
 /* 新增毛玻璃效果 */
 .backdrop-blur-2xl {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* 功能卡片样式优化 */
+.bg-white\/50 {
+    background: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+}
+
+.bg-white\/50:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 </style>
