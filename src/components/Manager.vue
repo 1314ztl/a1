@@ -1,5 +1,5 @@
 <template>
-	<div class="flex h-screen w-screen overflow-hidden">
+	<div class="flex h-screen w-screen overflow-hidden bg-white">
 		<!-- 左侧聊天区域 -->
 		<div class="w-1/4 flex flex-col bg-white border-r border-gray-200">
 			<div class="bg-blue-600 text-white p-4">
@@ -77,8 +77,22 @@
 		</div>
 		
 		<!-- 右侧组件展示区域 -->
-		<div class="w-2/4 bg-white overflow-hidden">
-			<div ref="result" class="w-full h-screen" v-html="suchIframe"></div>
+		<div class="w-2/4 bg-gradient-to-br from-blue-50 to-white relative flex-shrink-0">
+			<div class="absolute inset-0 p-6">
+				<div class="w-full h-full bg-white rounded-xl shadow-lg overflow-hidden relative">
+					<!-- 展示区标题 -->
+					<div class="absolute top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-100 p-4 z-10">
+						<h2 class="text-lg font-medium text-gray-700">智能控制面板</h2>
+					</div>
+					
+					<!-- 内容区域 -->
+					<div class="absolute inset-0 pt-16">
+						<div class="w-full h-full relative scale-container">
+							<div ref="result" class="absolute inset-0" v-html="suchIframe"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -98,7 +112,7 @@ provide('build_component', ref(true));
 
 const promptState = ref('initial');
 
-const suchIframe = ref(`<iframe src="http://localhost:5173/userView.html" style="width: 200%; height: 150vh; border: 2px solid rgba(100, 150, 255, 0.3); border-radius: 8px; transform: scale(0.5); transform-origin: 0 0;" frameborder="0"></iframe>`);
+const suchIframe = ref(`<iframe src="http://localhost:5173/userView.html" class="scale-frame" style="width: 100%; height: 100%; border: none;" frameborder="0"></iframe>`);
 
 const result = ref(null);
 const userNeeds = ref("");
@@ -292,11 +306,121 @@ const handleTask12 = async () => {
 
 :deep(iframe) {
     display: block;
-    width: 200%;
-    height: 150vh;
-    border: 2px solid rgba(100, 150, 255, 0.3);
-    border-radius: 8px;
-    transform: scale(0.5);
-    transform-origin: 0 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+}
+
+/* 添加阴影过渡效果 */
+.shadow-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-lg:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* 添加背景渐变动画 */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.bg-gradient-to-br {
+    background: linear-gradient(135deg, rgb(239, 246, 255) 0%, rgb(255, 255, 255) 100%);
+}
+
+.scale-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+:deep(.scale-frame) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
+    background: transparent;
+}
+
+/* 调整内容区域的内边距 */
+.absolute.inset-0.pt-16 {
+    padding: 4rem 1rem 1rem 1rem;
+}
+
+/* 确保内容区域不会溢出 */
+.overflow-hidden {
+    overflow: hidden !important;
+}
+
+/* 添加平滑过渡效果 */
+.scale-frame {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 修改右侧展示区域样式 */
+.w-2\/4 {
+    width: 50%;
+    flex: 0 0 50%;
+    position: relative;
+    border-left: 1px solid #e5e7eb;
+}
+
+/* 确保内容容器正确显示 */
+.absolute.inset-0.p-6 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1.5rem;
+}
+
+/* 调整圆角和阴影 */
+.rounded-xl {
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.shadow-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* 确保scale-container正确显示 */
+.scale-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* 添加边框样式 */
+.border {
+    border-width: 1px;
+}
+
+.border-gray-200 {
+    border-color: #e5e7eb;
+}
+
+/* 根容器样式 */
+.flex.h-screen.w-screen {
+    min-height: 100vh;
+    min-width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 </style>
