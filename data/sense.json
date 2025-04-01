@@ -16,14 +16,28 @@
                         {
                             "name": "亮度",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节亮度",
                             "data_api_name": "tv_brightness_living_room"
                         },
                         {
                             "name": "频道",
                             "type": "enum",
-                            "options": ["CCTV1", "CCTV2", "CCTV3", "CCTV4", "CCTV5", "CCTV6", "CCTV7", "CCTV8", "CCTV9", "CCTV10"],
+                            "options": [
+                                "CCTV1",
+                                "CCTV2",
+                                "CCTV3",
+                                "CCTV4",
+                                "CCTV5",
+                                "CCTV6",
+                                "CCTV7",
+                                "CCTV8",
+                                "CCTV9",
+                                "CCTV10"
+                            ],
                             "description": "调节频道",
                             "data_api_name": "tv_channel_living_room"
                         }
@@ -36,21 +50,33 @@
                         {
                             "name": "温度",
                             "type": "int",
-                            "range": [16, 30],
+                            "range": [
+                                16,
+                                30
+                            ],
                             "description": "调节温度",
                             "data_api_name": "ac_temperature_living_room"
                         },
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["制冷", "制热", "除湿", "送风"],
+                            "options": [
+                                "制冷",
+                                "制热",
+                                "除湿",
+                                "送风"
+                            ],
                             "description": "选择空调模式",
                             "data_api_name": "ac_mode_living_room"
                         },
                         {
                             "name": "风速",
                             "type": "enum",
-                            "options": ["低", "中", "高"],
+                            "options": [
+                                "低",
+                                "中",
+                                "高"
+                            ],
                             "description": "调节风速",
                             "data_api_name": "ac_fan_speed_living_room"
                         }
@@ -69,7 +95,11 @@
                         {
                             "name": "风速",
                             "type": "enum",
-                            "options": ["低", "中", "高"],
+                            "options": [
+                                "低",
+                                "中",
+                                "高"
+                            ],
                             "description": "调节风速",
                             "data_api_name": "fan_speed_living_room"
                         }
@@ -88,7 +118,10 @@
                         {
                             "name": "亮度",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节亮度",
                             "data_api_name": "chandelier_brightness_living_room"
                         }
@@ -107,7 +140,10 @@
                         {
                             "name": "音量",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节音量",
                             "data_api_name": "speaker_volume_living_room"
                         }
@@ -131,7 +167,10 @@
                         {
                             "name": "位置",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节窗帘位置",
                             "data_api_name": "curtain_position_bedroom"
                         }
@@ -144,21 +183,33 @@
                         {
                             "name": "温度",
                             "type": "int",
-                            "range": [16, 30],
+                            "range": [
+                                16,
+                                30
+                            ],
                             "description": "调节温度",
                             "data_api_name": "ac_temperature_bedroom"
                         },
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["制冷", "制热", "除湿", "送风"],
+                            "options": [
+                                "制冷",
+                                "制热",
+                                "除湿",
+                                "送风"
+                            ],
                             "description": "选择空调模式",
                             "data_api_name": "ac_mode_bedroom"
                         },
                         {
                             "name": "风速",
                             "type": "enum",
-                            "options": ["低", "中", "高"],
+                            "options": [
+                                "低",
+                                "中",
+                                "高"
+                            ],
                             "description": "调节风速",
                             "data_api_name": "ac_fan_speed_bedroom"
                         }
@@ -177,7 +228,10 @@
                         {
                             "name": "亮度",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节亮度",
                             "data_api_name": "chandelier_brightness_bedroom"
                         }
@@ -196,7 +250,10 @@
                         {
                             "name": "湿度",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节湿度",
                             "data_api_name": "humidifier_humidity_bedroom"
                         }
@@ -215,7 +272,10 @@
                         {
                             "name": "亮度",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节亮度",
                             "data_api_name": "bedside_lamp_brightness_bedroom"
                         }
@@ -234,14 +294,28 @@
                         {
                             "name": "亮度",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节亮度",
                             "data_api_name": "tv_brightness_bedroom"
                         },
                         {
                             "name": "频道",
                             "type": "enum",
-                            "options": ["CCTV1", "CCTV2", "CCTV3", "CCTV4", "CCTV5", "CCTV6", "CCTV7", "CCTV8", "CCTV9", "CCTV10"],
+                            "options": [
+                                "CCTV1",
+                                "CCTV2",
+                                "CCTV3",
+                                "CCTV4",
+                                "CCTV5",
+                                "CCTV6",
+                                "CCTV7",
+                                "CCTV8",
+                                "CCTV9",
+                                "CCTV10"
+                            ],
                             "description": "调节频道",
                             "data_api_name": "tv_channel_bedroom"
                         }
@@ -260,7 +334,10 @@
                         {
                             "name": "音量",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节音量",
                             "data_api_name": "speaker_volume_bedroom"
                         }
@@ -272,85 +349,82 @@
             "name": "厨房",
             "furniture": [
                 {
-                    "name": "电磁炉",
-                    "type": "厨具",
+                    "name": "智能冰箱",
+                    "type": "厨房",
                     "status": [
                         {
                             "name": "开启",
                             "type": "bool",
-                            "description": "开启或关闭电磁炉",
-                            "data_api_name": "induction_cooker_power_kitchen"
-                        },
-                        {
-                            "name": "火力",
-                            "type": "int",
-                            "range": [0, 10],
-                            "description": "调节火力",
-                            "data_api_name": "induction_cooker_power_level_kitchen"
-                        }
-                    ]
-                },
-                {
-                    "name": "电饭煲",
-                    "type": "厨具",
-                    "status": [
-                        {
-                            "name": "开启",
-                            "type": "bool",
-                            "description": "开启或关闭电饭煲",
-                            "data_api_name": "rice_cooker_power_kitchen"
-                        },
-                        {
-                            "name": "模式",
-                            "type": "enum",
-                            "options": ["煮饭", "煮粥", "保温"],
-                            "description": "选择电饭煲模式",
-                            "data_api_name": "rice_cooker_mode_kitchen"
-                        }
-                    ]
-                },
-                {
-                    "name": "电烤箱",
-                    "type": "厨具",
-                    "status": [
-                        {
-                            "name": "开启",
-                            "type": "bool",
-                            "description": "开启或关闭电烤箱",
-                            "data_api_name": "oven_power_kitchen"
+                            "description": "开启或关闭冰箱",
+                            "data_api_name": "fridge_power_kitchen"
                         },
                         {
                             "name": "温度",
                             "type": "int",
-                            "range": [100, 250],
-                            "description": "调节温度",
-                            "data_api_name": "oven_temperature_kitchen"
+                            "range": [
+                                2,
+                                8
+                            ],
+                            "description": "调节冷藏室温度",
+                            "data_api_name": "fridge_temperature_kitchen"
                         },
                         {
-                            "name": "时间",
-                            "type": "int",
-                            "range": [0, 60],
-                            "description": "设置烘烤时间",
-                            "data_api_name": "oven_time_kitchen"
+                            "name": "模式",
+                            "type": "enum",
+                            "options": [
+                                "节能",
+                                "速冷",
+                                "假日"
+                            ],
+                            "description": "选择运行模式",
+                            "data_api_name": "fridge_mode_kitchen"
+                        }
+                    ]
+                },
+                {
+                    "name": "洗碗机",
+                    "type": "厨房",
+                    "status": [
+                        {
+                            "name": "开启",
+                            "type": "bool",
+                            "description": "开启或关闭洗碗机",
+                            "data_api_name": "dishwasher_power_kitchen"
+                        },
+                        {
+                            "name": "模式",
+                            "type": "enum",
+                            "options": [
+                                "快速",
+                                "标准",
+                                "强力",
+                                "节能"
+                            ],
+                            "description": "选择洗涤模式",
+                            "data_api_name": "dishwasher_mode_kitchen"
                         }
                     ]
                 },
                 {
                     "name": "抽油烟机",
-                    "type": "环境",
+                    "type": "厨房",
                     "status": [
                         {
                             "name": "开启",
                             "type": "bool",
                             "description": "开启或关闭抽油烟机",
-                            "data_api_name": "range_hood_power_kitchen"
+                            "data_api_name": "hood_power_kitchen"
                         },
                         {
                             "name": "风速",
                             "type": "enum",
-                            "options": ["低", "中", "高"],
+                            "options": [
+                                "低",
+                                "中",
+                                "高"
+                            ],
                             "description": "调节风速",
-                            "data_api_name": "range_hood_fan_speed_kitchen"
+                            "data_api_name": "hood_speed_kitchen"
                         }
                     ]
                 }
@@ -359,6 +433,28 @@
         {
             "name": "浴室",
             "furniture": [
+                {
+                    "name": "主灯",
+                    "type": "照明",
+                    "status": [
+                        {
+                            "name": "开启",
+                            "type": "bool",
+                            "description": "开启或关闭主灯",
+                            "data_api_name": "light_power_bathroom"
+                        },
+                        {
+                            "name": "亮度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "调节亮度",
+                            "data_api_name": "light_brightness_bathroom"
+                        }
+                    ]
+                },
                 {
                     "name": "热水器",
                     "type": "洗浴",
@@ -372,7 +468,10 @@
                         {
                             "name": "温度",
                             "type": "int",
-                            "range": [30, 75],
+                            "range": [
+                                30,
+                                75
+                            ],
                             "description": "调节水温",
                             "data_api_name": "water_heater_temperature_bathroom"
                         }
@@ -391,7 +490,11 @@
                         {
                             "name": "风速",
                             "type": "enum",
-                            "options": ["低", "中", "高"],
+                            "options": [
+                                "低",
+                                "中",
+                                "高"
+                            ],
                             "description": "调节风速",
                             "data_api_name": "bath_heater_fan_speed_bathroom"
                         }
@@ -410,7 +513,12 @@
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["标准", "快速", "大件", "婴儿"],
+                            "options": [
+                                "标准",
+                                "快速",
+                                "大件",
+                                "婴儿"
+                            ],
                             "description": "选择洗衣模式",
                             "data_api_name": "washing_machine_mode_bathroom"
                         }
@@ -429,7 +537,11 @@
                         {
                             "name": "冲洗模式",
                             "type": "enum",
-                            "options": ["标准", "强力", "节水"],
+                            "options": [
+                                "标准",
+                                "强力",
+                                "节水"
+                            ],
                             "description": "选择冲洗模式",
                             "data_api_name": "smart_toilet_flush_mode_bathroom"
                         }
@@ -447,21 +559,33 @@
                         {
                             "name": "温度",
                             "type": "int",
-                            "range": [16, 30],
+                            "range": [
+                                16,
+                                30
+                            ],
                             "description": "调节温度",
                             "data_api_name": "ac_temperature_kids_room"
                         },
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["制冷", "制热", "除湿", "送风"],
+                            "options": [
+                                "制冷",
+                                "制热",
+                                "除湿",
+                                "送风"
+                            ],
                             "description": "选择空调模式",
                             "data_api_name": "ac_mode_kids_room"
                         },
                         {
                             "name": "风速",
                             "type": "enum",
-                            "options": ["低", "中", "高"],
+                            "options": [
+                                "低",
+                                "中",
+                                "高"
+                            ],
                             "description": "调节风速",
                             "data_api_name": "ac_fan_speed_kids_room"
                         }
@@ -480,7 +604,10 @@
                         {
                             "name": "亮度",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节亮度",
                             "data_api_name": "chandelier_brightness_kids_room"
                         }
@@ -499,14 +626,28 @@
                         {
                             "name": "亮度",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节亮度",
                             "data_api_name": "tv_brightness_kids_room"
                         },
                         {
                             "name": "频道",
                             "type": "enum",
-                            "options": ["CCTV1", "CCTV2", "CCTV3", "CCTV4", "CCTV5", "CCTV6", "CCTV7", "CCTV8", "CCTV9", "CCTV10"],
+                            "options": [
+                                "CCTV1",
+                                "CCTV2",
+                                "CCTV3",
+                                "CCTV4",
+                                "CCTV5",
+                                "CCTV6",
+                                "CCTV7",
+                                "CCTV8",
+                                "CCTV9",
+                                "CCTV10"
+                            ],
                             "description": "调节频道",
                             "data_api_name": "tv_channel_kids_room"
                         }
@@ -525,7 +666,10 @@
                         {
                             "name": "音量",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节音量",
                             "data_api_name": "speaker_volume_kids_room"
                         }
@@ -544,7 +688,10 @@
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["监控", "休眠"],
+                            "options": [
+                                "监控",
+                                "休眠"
+                            ],
                             "description": "选择监控模式",
                             "data_api_name": "camera_mode_kids_room"
                         }
@@ -562,21 +709,33 @@
                         {
                             "name": "温度",
                             "type": "int",
-                            "range": [16, 30],
+                            "range": [
+                                16,
+                                30
+                            ],
                             "description": "调节温度",
                             "data_api_name": "ac_temperature_study"
                         },
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["制冷", "制热", "除湿", "送风"],
+                            "options": [
+                                "制冷",
+                                "制热",
+                                "除湿",
+                                "送风"
+                            ],
                             "description": "选择空调模式",
                             "data_api_name": "ac_mode_study"
                         },
                         {
                             "name": "风速",
                             "type": "enum",
-                            "options": ["低", "中", "高"],
+                            "options": [
+                                "低",
+                                "中",
+                                "高"
+                            ],
                             "description": "调节风速",
                             "data_api_name": "ac_fan_speed_study"
                         }
@@ -595,7 +754,10 @@
                         {
                             "name": "亮度",
                             "type": "int",
-                            "range": [0, 100],
+                            "range": [
+                                0,
+                                100
+                            ],
                             "description": "调节亮度",
                             "data_api_name": "chandelier_brightness_study"
                         }
@@ -614,7 +776,11 @@
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["办公", "娱乐", "休眠"],
+                            "options": [
+                                "办公",
+                                "娱乐",
+                                "休眠"
+                            ],
                             "description": "选择电脑模式",
                             "data_api_name": "computer_mode_study"
                         }
@@ -633,7 +799,11 @@
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["正常", "省电", "休眠"],
+                            "options": [
+                                "正常",
+                                "省电",
+                                "休眠"
+                            ],
                             "description": "选择路由器模式",
                             "data_api_name": "router_mode_study"
                         }
@@ -652,33 +822,103 @@
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["打印", "复印", "扫描"],
+                            "options": [
+                                "打印",
+                                "复印",
+                                "扫描"
+                            ],
                             "description": "选择打印机模式",
                             "data_api_name": "printer_mode_study"
+                        }
+                    ]
+                },
+                {
+                    "name": "RGB台灯",
+                    "type": "照明",
+                    "status": [
+                        {
+                            "name": "开启",
+                            "type": "bool",
+                            "description": "开启或关闭台灯",
+                            "data_api_name": "desk_lamp_power_study"
+                        },
+                        {
+                            "name": "颜色",
+                            "type": "color",
+                            "description": "调节灯光颜色",
+                            "data_api_name": "desk_lamp_color_study"
+                        },
+                        {
+                            "name": "亮度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "调节亮度",
+                            "data_api_name": "desk_lamp_brightness_study"
                         }
                     ]
                 }
             ]
         },
         {
-            "name": "中性空间",
+            "name": "阳台",
             "furniture": [
                 {
-                    "name": "智能门禁",
-                    "type": "安全",
+                    "name": "扫地机器人",
+                    "type": "清洁",
                     "status": [
                         {
                             "name": "开启",
                             "type": "bool",
-                            "description": "开启或关闭智能门禁",
-                            "data_api_name": "smart_door_lock_power_neutral_space"
+                            "description": "开启或关闭扫地机器人",
+                            "data_api_name": "robot_power_balcony"
+                        },
+                        {
+                            "name": "位置",
+                            "type": "position",
+                            "description": "当前位置",
+                            "data_api_name": "robot_position_balcony"
                         },
                         {
                             "name": "模式",
                             "type": "enum",
-                            "options": ["正常", "锁定", "访客"],
-                            "description": "选择门禁模式",
-                            "data_api_name": "smart_door_lock_mode_neutral_space"
+                            "options": [
+                                "自动",
+                                "定点",
+                                "沿边",
+                                "回充"
+                            ],
+                            "description": "选择清扫模式",
+                            "data_api_name": "robot_mode_balcony"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "储物间",
+            "furniture": [
+                {
+                    "name": "除湿机",
+                    "type": "环境",
+                    "status": [
+                        {
+                            "name": "开启",
+                            "type": "bool",
+                            "description": "开启或关闭除湿机",
+                            "data_api_name": "dehumidifier_power_storage"
+                        },
+                        {
+                            "name": "湿度",
+                            "type": "int",
+                            "range": [
+                                30,
+                                80
+                            ],
+                            "description": "目标湿度",
+                            "data_api_name": "dehumidifier_humidity_storage"
                         }
                     ]
                 }
