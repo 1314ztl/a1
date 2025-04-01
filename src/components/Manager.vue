@@ -34,16 +34,16 @@
 					</div>
 					<div class="flex gap-3">
 						<button @click="handleTask1" 
-							class="flex-1 px-5 py-3.5 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all button-style font-medium">
-							分析
+							class="btn flex-1">
+							<span>分析</span>
 						</button>
 						<button @click="handleTask2" 
-							class="flex-1 px-5 py-3.5 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all button-style font-medium">
-							生成
+							class="btn flex-1">
+							<span>生成</span>
 						</button>
 						<button @click="handleTask12" 
-							class="flex-1 px-5 py-3.5 bg-gradient-to-br from-emerald-500 via-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-600 hover:to-green-700 transition-all button-style font-medium">
-							一键完成
+							class="btn flex-1" style="--fancy-button-gradient-0: #10b981; --fancy-button-gradient-50: #059669; --fancy-button-gradient-100: #047857;">
+							<span>一键完成</span>
 						</button>
 					</div>
 				</div>
@@ -897,5 +897,144 @@ button:active {
     background: rgba(255, 255, 255, 0.9);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 新增花哨按钮样式 */
+.btn {
+  --fancy-button-gradient-0: #8d49fd;
+  --fancy-button-gradient-50: #7f56f3;
+  --fancy-button-gradient-100: #5691f3;
+  --fancy-button-inner-shadow-top: rgba(233, 209, 255, 0.2);
+  --fancy-button-inner-shadow-top-lg: rgba(9, 12, 60, 0.1);
+  --fancy-button-inner-shadow-bottom: rgba(137, 222, 246, 0.3);
+  --fancy-button-shine-top: #e9d1ff;
+  --fancy-button-shine-bottom: #adfff9;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 21px;
+  text-shadow: 0px 0.5px 0.5px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 25px;
+  color: #fff;
+  background-image: linear-gradient(
+    to bottom,
+    var(--fancy-button-gradient-0) 0%,
+    var(--fancy-button-gradient-50) 50%,
+    var(--fancy-button-gradient-100) 100%
+  );
+  box-shadow:
+    0px 4px 12px rgba(9, 12, 60, 0.15),
+    0px 2px 8px rgba(9, 12, 60, 0.15),
+    0px 1px 3px var(--fancy-button-inner-shadow-top-lg),
+    inset 0px 1px 1px var(--fancy-button-inner-shadow-top),
+    inset 0px -1px 3px var(--fancy-button-inner-shadow-bottom);
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+  60% {
+    left: 100%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -100px;
+  width: 50px;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(45deg);
+  pointer-events: none;
+  animation: shine 3s ease-in-out infinite;
+  mix-blend-mode: soft-light;
+  z-index: 2;
+}
+
+.btn:hover::after {
+  animation-duration: 1.5s;
+}
+
+.btn span {
+  display: block;
+  padding: 12px 24px;
+  border-radius: inherit;
+  overflow: hidden;
+  position: relative;
+  background-image: linear-gradient(
+    to bottom,
+    var(--fancy-button-shine-top),
+    transparent 8px
+  );
+  background-position: 0 -6px;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.btn span:before,
+.btn span:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background-color: var(--fancy-button-shine-bottom);
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
+  will-change: transform;
+}
+
+.btn span:before {
+  width: 92px;
+  height: 8px;
+  bottom: -4px;
+  opacity: 0.75;
+  filter: blur(6px);
+}
+
+.btn span:after {
+  width: 112px;
+  height: 1px;
+  bottom: 0;
+  opacity: 0.9;
+  filter: blur(1px);
+}
+
+.btn:hover span:before {
+  opacity: 0.8;
+  transform: translateX(-50%) scale(1.25);
+}
+
+.btn:hover span:after {
+  opacity: 1;
+}
+
+/* 移除旧的按钮样式 */
+button.button-style {
+  box-shadow: none;
+  letter-spacing: normal;
+}
+
+button.button-style::before {
+  display: none;
+}
+
+button.button-style:hover::before {
+  display: none;
 }
 </style>
