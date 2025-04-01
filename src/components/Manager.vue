@@ -105,59 +105,57 @@
 		
 		<!-- 右侧组件展示区域 -->
 		<div class="w-2/4 bg-white/95 rounded-2xl shadow-2xl overflow-hidden relative flex-shrink-0 card-hover backdrop-blur-2xl border border-white/20">
-			<div class="absolute inset-0">
-				<div class="w-full h-full relative">
-					<!-- 展示区标题 -->
-					<div class="absolute top-0 left-0 right-0 bg-gradient-to-r from-white/95 to-white/90 backdrop-blur-xl border-b border-gray-100/50 p-6 z-10">
-						<h2 class="text-xl font-medium tracking-wide flex items-center gap-3">
-							<span class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg">
-								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+			<div class="flex flex-col h-full">
+				<!-- 展示区标题 -->
+				<div class="bg-gradient-to-r from-white/95 to-white/90 backdrop-blur-xl border-b border-gray-100/50 p-6">
+					<h2 class="text-xl font-medium tracking-wide flex items-center gap-3">
+						<span class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg">
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+							</svg>
+						</span>
+						智能控制面板
+					</h2>
+				</div>
+				
+				<!-- 内容区域 -->
+				<div class="flex-1 overflow-auto">
+					<!-- 默认提示界面 -->
+					<div v-if="!hasUserInput" class="h-full flex items-center justify-center bg-gradient-radial from-transparent via-white/5 to-white/10">
+						<div class="text-center p-10 transform hover:scale-105 transition-all max-w-lg">
+							<div class="w-28 h-28 mx-auto mb-8 bg-gradient-to-br from-blue-100 via-indigo-50 to-white rounded-2xl flex items-center justify-center shadow-inner-xl glow-effect-light">
+								<svg class="w-14 h-14 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
 								</svg>
-							</span>
-							智能控制面板
-						</h2>
-					</div>
-					
-					<!-- 内容区域 -->
-					<div class="absolute inset-0 pt-20">
-						<!-- 默认提示界面 -->
-						<div v-if="!hasUserInput" class="w-full h-full flex items-center justify-center bg-gradient-radial from-transparent via-white/5 to-white/10">
-							<div class="text-center p-10 transform hover:scale-105 transition-all max-w-lg">
-								<div class="w-28 h-28 mx-auto mb-8 bg-gradient-to-br from-blue-100 via-indigo-50 to-white rounded-2xl flex items-center justify-center shadow-inner-xl glow-effect-light">
-									<svg class="w-14 h-14 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-									</svg>
-								</div>
-								<h3 class="text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 mb-4">欢迎使用智能控制面板</h3>
-								<p class="text-gray-600 mb-8 text-lg">请在左侧输入您的控制需求<br/>例如："我要控制客厅的灯"</p>
-								<div class="space-y-4 text-sm bg-gradient-to-br from-gray-50/80 to-white/50 p-8 rounded-2xl backdrop-blur-xl shadow-inner">
-									<p class="font-medium text-gray-700 mb-4 text-lg">支持的功能</p>
-									<div class="grid grid-cols-2 gap-4">
-										<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
-											<span class="text-blue-500 flex-shrink-0">✓</span>
-											<span class="text-gray-600">灯光控制（开关、亮度）</span>
-										</div>
-										<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
-											<span class="text-blue-500 flex-shrink-0">✓</span>
-											<span class="text-gray-600">空调控制（温度、模式）</span>
-										</div>
-										<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
-											<span class="text-blue-500 flex-shrink-0">✓</span>
-											<span class="text-gray-600">窗帘控制（开合）</span>
-										</div>
-										<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
-											<span class="text-blue-500 flex-shrink-0">✓</span>
-											<span class="text-gray-600">更多设备支持中...</span>
-										</div>
+							</div>
+							<h3 class="text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 mb-4">欢迎使用智能控制面板</h3>
+							<p class="text-gray-600 mb-8 text-lg">请在左侧输入您的控制需求<br/>例如："我要控制客厅的灯"</p>
+							<div class="space-y-4 text-sm bg-gradient-to-br from-gray-50/80 to-white/50 p-8 rounded-2xl backdrop-blur-xl shadow-inner">
+								<p class="font-medium text-gray-700 mb-4 text-lg">支持的功能</p>
+								<div class="grid grid-cols-2 gap-4">
+									<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
+										<span class="text-blue-500 flex-shrink-0">✓</span>
+										<span class="text-gray-600">灯光控制（开关、亮度）</span>
+									</div>
+									<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
+										<span class="text-blue-500 flex-shrink-0">✓</span>
+										<span class="text-gray-600">空调控制（温度、模式）</span>
+									</div>
+									<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
+										<span class="text-blue-500 flex-shrink-0">✓</span>
+										<span class="text-gray-600">窗帘控制（开合）</span>
+									</div>
+									<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
+										<span class="text-blue-500 flex-shrink-0">✓</span>
+										<span class="text-gray-600">更多设备支持中...</span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- 实际控制界面 -->
-						<div v-else class="w-full h-full relative scale-container">
-							<div ref="result" class="absolute inset-0" v-html="suchIframe"></div>
-						</div>
+					</div>
+					<!-- 实际控制界面 -->
+					<div v-else class="h-full relative">
+						<div ref="result" class="absolute inset-0 overflow-auto" v-html="suchIframe"></div>
 					</div>
 				</div>
 			</div>
