@@ -572,14 +572,13 @@ button:active {
     -webkit-text-fill-color: transparent;
 }
 
-/* 添加渐变背景 */
+/* 修改背景渐变 */
 .bg-gradient {
-    background: linear-gradient(180deg, #8B5CF6 0%, #3B82F6 100%);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    background: linear-gradient(90deg, 
+        #ffb6c1 0%, 
+        #afeeee 100%
+    );
+    background-attachment: fixed;
 }
 
 /* 调整文字颜色以提高在新背景上的可读性 */
@@ -700,10 +699,9 @@ button:active {
 
 /* 修改背景渐变 */
 .bg-gradient {
-    background: linear-gradient(135deg, 
-        rgba(139, 92, 246, 0.92) 0%, 
-        rgba(59, 130, 246, 0.88) 50%, 
-        rgba(37, 99, 235, 0.84) 100%
+    background: linear-gradient(90deg, 
+        #ffb6c1 0%, 
+        #afeeee 100%
     );
     background-attachment: fixed;
 }
@@ -764,10 +762,9 @@ button:active {
 
 /* 背景渐变优化 */
 .bg-gradient {
-    background: linear-gradient(135deg, 
-        rgba(139, 92, 246, 0.92) 0%, 
-        rgba(59, 130, 246, 0.88) 50%, 
-        rgba(37, 99, 235, 0.84) 100%
+    background: linear-gradient(90deg, 
+        #ffb6c1 0%, 
+        #afeeee 100%
     );
     background-attachment: fixed;
 }
