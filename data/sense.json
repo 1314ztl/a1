@@ -234,9 +234,16 @@
                             "data_api_name": "parking_light_brightness_garage"
                         },
                         {
-                            "name": "颜色",
-                            "type": "color",
-                            "description": "指示灯颜色",
+                            "name": "灯光颜色",
+                            "type": "enum",
+                            "options": [
+                                "红色",
+                                "绿色",
+                                "蓝色",
+                                "黄色",
+                                "白色"
+                            ],
+                            "description": "指示灯颜色选择",
                             "data_api_name": "parking_light_color_garage"
                         }
                     ]
@@ -1225,9 +1232,19 @@
                             "data_api_name": "desk_lamp_power_study"
                         },
                         {
-                            "name": "颜色",
-                            "type": "color",
-                            "description": "调节灯光颜色",
+                            "name": "灯光颜色",
+                            "type": "enum",
+                            "options": [
+                                "暖白光",
+                                "自然白",
+                                "冷白光",
+                                "温馨黄",
+                                "浪漫紫",
+                                "清新绿",
+                                "海洋蓝",
+                                "RGB自定义"
+                            ],
+                            "description": "台灯颜色选择",
                             "data_api_name": "desk_lamp_color_study"
                         },
                         {
@@ -1381,9 +1398,16 @@
                             "data_api_name": "curtain_timer_study"
                         },
                         {
-                            "name": "场景",
-                            "type": "scene",
-                            "description": "场景模式",
+                            "name": "场景模式",
+                            "type": "enum",
+                            "options": [
+                                "工作模式",
+                                "休息模式",
+                                "观影模式",
+                                "会客模式",
+                                "节能模式"
+                            ],
+                            "description": "预设场景模式",
                             "data_api_name": "curtain_scene_study"
                         }
                     ]
@@ -1472,10 +1496,54 @@
                             "data_api_name": "weather_station_power_balcony"
                         },
                         {
-                            "name": "天气数据",
-                            "type": "weather",
-                            "description": "天气监测数据",
-                            "data_api_name": "weather_station_data_balcony"
+                            "name": "温度",
+                            "type": "int",
+                            "range": [
+                                -40,
+                                60
+                            ],
+                            "description": "当前温度(℃)",
+                            "data_api_name": "weather_station_temperature_balcony"
+                        },
+                        {
+                            "name": "湿度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "当前湿度(%)",
+                            "data_api_name": "weather_station_humidity_balcony"
+                        },
+                        {
+                            "name": "风速",
+                            "type": "int",
+                            "range": [
+                                0,
+                                200
+                            ],
+                            "description": "当前风速(km/h)",
+                            "data_api_name": "weather_station_wind_speed_balcony"
+                        },
+                        {
+                            "name": "气压",
+                            "type": "int",
+                            "range": [
+                                800,
+                                1200
+                            ],
+                            "description": "当前气压(hPa)",
+                            "data_api_name": "weather_station_pressure_balcony"
+                        },
+                        {
+                            "name": "降水量",
+                            "type": "int",
+                            "range": [
+                                0,
+                                1000
+                            ],
+                            "description": "当日降水量(mm)",
+                            "data_api_name": "weather_station_rainfall_balcony"
                         }
                     ]
                 },
@@ -1775,10 +1843,23 @@
                             "data_api_name": "irrigation_timer_garden"
                         },
                         {
-                            "name": "分区控制",
-                            "type": "complex",
-                            "description": "不同区域控制",
-                            "data_api_name": "irrigation_zones_garden"
+                            "name": "分区选择",
+                            "type": "enum",
+                            "options": [
+                                "草坪区",
+                                "花园区",
+                                "菜园区",
+                                "树木区",
+                                "全部区域"
+                            ],
+                            "description": "选择浇水区域",
+                            "data_api_name": "irrigation_zone_garden"
+                        },
+                        {
+                            "name": "分区状态",
+                            "type": "monitor",
+                            "description": "各区域浇水状态",
+                            "data_api_name": "irrigation_zone_status_garden"
                         }
                     ]
                 },
@@ -1984,10 +2065,36 @@
                             "data_api_name": "access_control_history_house"
                         },
                         {
-                            "name": "权限管理",
-                            "type": "complex",
-                            "description": "门禁权限",
-                            "data_api_name": "access_control_permissions_house"
+                            "name": "权限等级",
+                            "type": "enum",
+                            "options": [
+                                "管理员",
+                                "家庭成员",
+                                "访客",
+                                "服务人员",
+                                "快递人员"
+                            ],
+                            "description": "用户权限等级",
+                            "data_api_name": "access_control_level_house"
+                        },
+                        {
+                            "name": "门禁区域",
+                            "type": "enum",
+                            "options": [
+                                "主入口",
+                                "车库",
+                                "后门",
+                                "健身房",
+                                "储物间"
+                            ],
+                            "description": "可访问区域",
+                            "data_api_name": "access_control_area_house"
+                        },
+                        {
+                            "name": "时间限制",
+                            "type": "timer",
+                            "description": "访问时间限制",
+                            "data_api_name": "access_control_time_house"
                         }
                     ]
                 },
