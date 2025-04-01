@@ -1,6 +1,249 @@
 {
     "room_list": [
         {
+            "name": "入户区域",
+            "furniture": [
+                {
+                    "name": "智能门锁",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "锁定状态",
+                            "type": "bool",
+                            "description": "门锁是否锁定",
+                            "data_api_name": "door_lock_status_entrance"
+                        },
+                        {
+                            "name": "电量",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "门锁电池电量",
+                            "data_api_name": "door_lock_battery_entrance"
+                        },
+                        {
+                            "name": "开门记录",
+                            "type": "monitor",
+                            "description": "记录开门历史",
+                            "data_api_name": "door_lock_history_entrance"
+                        },
+                        {
+                            "name": "安全模式",
+                            "type": "enum",
+                            "options": [
+                                "正常",
+                                "访客",
+                                "清洁工",
+                                "快递",
+                                "紧急"
+                            ],
+                            "description": "门锁安全模式",
+                            "data_api_name": "door_lock_mode_entrance"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能门铃",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "门铃是否开启",
+                            "data_api_name": "doorbell_power_entrance"
+                        },
+                        {
+                            "name": "电量",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "门铃电池电量",
+                            "data_api_name": "doorbell_battery_entrance"
+                        },
+                        {
+                            "name": "访客记录",
+                            "type": "monitor",
+                            "description": "记录访客历史",
+                            "data_api_name": "doorbell_history_entrance"
+                        },
+                        {
+                            "name": "铃声",
+                            "type": "enum",
+                            "options": [
+                                "经典",
+                                "欢快",
+                                "简约",
+                                "静音"
+                            ],
+                            "description": "门铃铃声选择",
+                            "data_api_name": "doorbell_sound_entrance"
+                        }
+                    ]
+                },
+                {
+                    "name": "入户感应灯",
+                    "type": "照明",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "感应灯是否开启",
+                            "data_api_name": "motion_light_power_entrance"
+                        },
+                        {
+                            "name": "亮度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "感应灯亮度",
+                            "data_api_name": "motion_light_brightness_entrance"
+                        },
+                        {
+                            "name": "感应模式",
+                            "type": "enum",
+                            "options": [
+                                "全天",
+                                "夜间",
+                                "自定义",
+                                "关闭"
+                            ],
+                            "description": "感应灯工作模式",
+                            "data_api_name": "motion_light_mode_entrance"
+                        },
+                        {
+                            "name": "定时设置",
+                            "type": "timer",
+                            "description": "感应灯定时设置",
+                            "data_api_name": "motion_light_timer_entrance"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "车库",
+            "furniture": [
+                {
+                    "name": "车库门",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "车库门是否开启",
+                            "data_api_name": "garage_door_status_garage"
+                        },
+                        {
+                            "name": "位置",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "车库门开启程度",
+                            "data_api_name": "garage_door_position_garage"
+                        },
+                        {
+                            "name": "操作记录",
+                            "type": "monitor",
+                            "description": "记录开关历史",
+                            "data_api_name": "garage_door_history_garage"
+                        }
+                    ]
+                },
+                {
+                    "name": "充电桩",
+                    "type": "电源",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "充电桩是否开启",
+                            "data_api_name": "charger_power_garage"
+                        },
+                        {
+                            "name": "充电功率",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "充电功率百分比",
+                            "data_api_name": "charger_power_level_garage"
+                        },
+                        {
+                            "name": "充电记录",
+                            "type": "monitor",
+                            "description": "记录充电历史",
+                            "data_api_name": "charger_history_garage"
+                        }
+                    ]
+                },
+                {
+                    "name": "一氧化碳检测器",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "检测器是否开启",
+                            "data_api_name": "co_detector_power_garage"
+                        },
+                        {
+                            "name": "浓度值",
+                            "type": "int",
+                            "range": [
+                                0,
+                                1000
+                            ],
+                            "description": "一氧化碳浓度(PPM)",
+                            "data_api_name": "co_detector_level_garage"
+                        },
+                        {
+                            "name": "警报记录",
+                            "type": "monitor",
+                            "description": "记录警报历史",
+                            "data_api_name": "co_detector_history_garage"
+                        }
+                    ]
+                },
+                {
+                    "name": "车位指示灯",
+                    "type": "照明",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "指示灯是否开启",
+                            "data_api_name": "parking_light_power_garage"
+                        },
+                        {
+                            "name": "亮度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "指示灯亮度",
+                            "data_api_name": "parking_light_brightness_garage"
+                        },
+                        {
+                            "name": "颜色",
+                            "type": "color",
+                            "description": "指示灯颜色",
+                            "data_api_name": "parking_light_color_garage"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "客厅",
             "furniture": [
                 {
@@ -427,21 +670,149 @@
                             "data_api_name": "hood_speed_kitchen"
                         }
                     ]
+                },
+                {
+                    "name": "智能水龙头",
+                    "type": "厨具",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "水龙头是否开启",
+                            "data_api_name": "tap_power_kitchen"
+                        },
+                        {
+                            "name": "水温",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "水温设置",
+                            "data_api_name": "tap_temperature_kitchen"
+                        },
+                        {
+                            "name": "出水量",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "出水量大小",
+                            "data_api_name": "tap_flow_kitchen"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能垃圾桶",
+                    "type": "厨具",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "垃圾桶是否开启",
+                            "data_api_name": "trash_power_kitchen"
+                        },
+                        {
+                            "name": "满载程度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "垃圾桶满载程度",
+                            "data_api_name": "trash_level_kitchen"
+                        },
+                        {
+                            "name": "除臭",
+                            "type": "bool",
+                            "description": "是否开启除臭功能",
+                            "data_api_name": "trash_deodorize_kitchen"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能咖啡机",
+                    "type": "厨具",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "咖啡机是否开启",
+                            "data_api_name": "coffee_power_kitchen"
+                        },
+                        {
+                            "name": "温度",
+                            "type": "int",
+                            "range": [
+                                60,
+                                100
+                            ],
+                            "description": "咖啡温度设置",
+                            "data_api_name": "coffee_temperature_kitchen"
+                        },
+                        {
+                            "name": "模式",
+                            "type": "enum",
+                            "options": [
+                                "美式",
+                                "浓缩",
+                                "拿铁",
+                                "卡布奇诺"
+                            ],
+                            "description": "咖啡制作模式",
+                            "data_api_name": "coffee_mode_kitchen"
+                        },
+                        {
+                            "name": "定时",
+                            "type": "timer",
+                            "description": "咖啡机定时设置",
+                            "data_api_name": "coffee_timer_kitchen"
+                        }
+                    ]
+                },
+                {
+                    "name": "燃气报警器",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "报警器是否开启",
+                            "data_api_name": "gas_alarm_power_kitchen"
+                        },
+                        {
+                            "name": "浓度值",
+                            "type": "int",
+                            "range": [
+                                0,
+                                1000
+                            ],
+                            "description": "燃气浓度(PPM)",
+                            "data_api_name": "gas_alarm_level_kitchen"
+                        },
+                        {
+                            "name": "警报记录",
+                            "type": "monitor",
+                            "description": "记录警报历史",
+                            "data_api_name": "gas_alarm_history_kitchen"
+                        }
+                    ]
                 }
             ]
         },
         {
-            "name": "浴室",
+            "name": "卫生间",
             "furniture": [
                 {
-                    "name": "主灯",
-                    "type": "照明",
+                    "name": "智能镜子",
+                    "type": "卫浴",
                     "status": [
                         {
-                            "name": "开启",
+                            "name": "开启状态",
                             "type": "bool",
-                            "description": "开启或关闭主灯",
-                            "data_api_name": "light_power_bathroom"
+                            "description": "镜子是否开启",
+                            "data_api_name": "mirror_power_bathroom"
                         },
                         {
                             "name": "亮度",
@@ -450,100 +821,111 @@
                                 0,
                                 100
                             ],
-                            "description": "调节亮度",
-                            "data_api_name": "light_brightness_bathroom"
+                            "description": "镜子亮度",
+                            "data_api_name": "mirror_brightness_bathroom"
+                        },
+                        {
+                            "name": "除雾",
+                            "type": "bool",
+                            "description": "是否开启除雾",
+                            "data_api_name": "mirror_defog_bathroom"
+                        },
+                        {
+                            "name": "显示模式",
+                            "type": "enum",
+                            "options": [
+                                "时间",
+                                "天气",
+                                "新闻",
+                                "音乐",
+                                "关闭"
+                            ],
+                            "description": "镜子显示内容",
+                            "data_api_name": "mirror_display_bathroom"
                         }
                     ]
                 },
                 {
-                    "name": "热水器",
-                    "type": "洗浴",
+                    "name": "智能体重秤",
+                    "type": "健康",
                     "status": [
                         {
-                            "name": "开启",
+                            "name": "开启状态",
                             "type": "bool",
-                            "description": "开启或关闭热水器",
-                            "data_api_name": "water_heater_power_bathroom"
+                            "description": "体重秤是否开启",
+                            "data_api_name": "scale_power_bathroom"
+                        },
+                        {
+                            "name": "测量记录",
+                            "type": "monitor",
+                            "description": "记录测量历史",
+                            "data_api_name": "scale_history_bathroom"
+                        },
+                        {
+                            "name": "单位",
+                            "type": "enum",
+                            "options": [
+                                "kg",
+                                "lb"
+                            ],
+                            "description": "重量单位",
+                            "data_api_name": "scale_unit_bathroom"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能毛巾架",
+                    "type": "卫浴",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "毛巾架是否开启",
+                            "data_api_name": "towel_rack_power_bathroom"
                         },
                         {
                             "name": "温度",
                             "type": "int",
                             "range": [
-                                30,
-                                75
+                                20,
+                                60
                             ],
-                            "description": "调节水温",
-                            "data_api_name": "water_heater_temperature_bathroom"
+                            "description": "加热温度",
+                            "data_api_name": "towel_rack_temperature_bathroom"
+                        },
+                        {
+                            "name": "定时",
+                            "type": "timer",
+                            "description": "加热定时",
+                            "data_api_name": "towel_rack_timer_bathroom"
                         }
                     ]
                 },
                 {
-                    "name": "浴霸",
-                    "type": "洗浴",
+                    "name": "紫外线消毒灯",
+                    "type": "卫浴",
                     "status": [
                         {
-                            "name": "开启",
+                            "name": "开启状态",
                             "type": "bool",
-                            "description": "开启或关闭浴霸",
-                            "data_api_name": "bath_heater_power_bathroom"
+                            "description": "消毒灯是否开启",
+                            "data_api_name": "uv_light_power_bathroom"
                         },
                         {
-                            "name": "风速",
-                            "type": "enum",
-                            "options": [
-                                "低",
-                                "中",
-                                "高"
-                            ],
-                            "description": "调节风速",
-                            "data_api_name": "bath_heater_fan_speed_bathroom"
-                        }
-                    ]
-                },
-                {
-                    "name": "洗衣机",
-                    "type": "人居",
-                    "status": [
-                        {
-                            "name": "开启",
-                            "type": "bool",
-                            "description": "开启或关闭洗衣机",
-                            "data_api_name": "washing_machine_power_bathroom"
+                            "name": "定时",
+                            "type": "timer",
+                            "description": "消毒定时",
+                            "data_api_name": "uv_light_timer_bathroom"
                         },
                         {
-                            "name": "模式",
-                            "type": "enum",
-                            "options": [
-                                "标准",
-                                "快速",
-                                "大件",
-                                "婴儿"
+                            "name": "强度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
                             ],
-                            "description": "选择洗衣模式",
-                            "data_api_name": "washing_machine_mode_bathroom"
-                        }
-                    ]
-                },
-                {
-                    "name": "智能马桶",
-                    "type": "人居",
-                    "status": [
-                        {
-                            "name": "开启",
-                            "type": "bool",
-                            "description": "开启或关闭智能马桶",
-                            "data_api_name": "smart_toilet_power_bathroom"
-                        },
-                        {
-                            "name": "冲洗模式",
-                            "type": "enum",
-                            "options": [
-                                "标准",
-                                "强力",
-                                "节水"
-                            ],
-                            "description": "选择冲洗模式",
-                            "data_api_name": "smart_toilet_flush_mode_bathroom"
+                            "description": "消毒强度",
+                            "data_api_name": "uv_light_intensity_bathroom"
                         }
                     ]
                 }
@@ -859,6 +1241,152 @@
                             "data_api_name": "desk_lamp_brightness_study"
                         }
                     ]
+                },
+                {
+                    "name": "智能书架",
+                    "type": "家具",
+                    "status": [
+                        {
+                            "name": "照明",
+                            "type": "bool",
+                            "description": "书架照明是否开启",
+                            "data_api_name": "bookshelf_light_power_study"
+                        },
+                        {
+                            "name": "亮度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "照明亮度",
+                            "data_api_name": "bookshelf_light_brightness_study"
+                        },
+                        {
+                            "name": "图书管理",
+                            "type": "monitor",
+                            "description": "图书借还记录",
+                            "data_api_name": "bookshelf_books_study"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能护眼台灯",
+                    "type": "照明",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "台灯是否开启",
+                            "data_api_name": "desk_lamp_power_study"
+                        },
+                        {
+                            "name": "亮度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "台灯亮度",
+                            "data_api_name": "desk_lamp_brightness_study"
+                        },
+                        {
+                            "name": "色温",
+                            "type": "int",
+                            "range": [
+                                2700,
+                                6500
+                            ],
+                            "description": "色温调节",
+                            "data_api_name": "desk_lamp_temperature_study"
+                        },
+                        {
+                            "name": "模式",
+                            "type": "enum",
+                            "options": [
+                                "阅读",
+                                "工作",
+                                "休息",
+                                "自定义"
+                            ],
+                            "description": "照明模式",
+                            "data_api_name": "desk_lamp_mode_study"
+                        }
+                    ]
+                },
+                {
+                    "name": "空气净化器",
+                    "type": "环境",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "净化器是否开启",
+                            "data_api_name": "purifier_power_study"
+                        },
+                        {
+                            "name": "风速",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "净化风速",
+                            "data_api_name": "purifier_speed_study"
+                        },
+                        {
+                            "name": "空气质量",
+                            "type": "monitor",
+                            "description": "空气质量监测",
+                            "data_api_name": "purifier_air_quality_study"
+                        },
+                        {
+                            "name": "模式",
+                            "type": "enum",
+                            "options": [
+                                "自动",
+                                "睡眠",
+                                "急速",
+                                "自定义"
+                            ],
+                            "description": "工作模式",
+                            "data_api_name": "purifier_mode_study"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能窗帘",
+                    "type": "遮阳",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "窗帘是否开启",
+                            "data_api_name": "curtain_power_study"
+                        },
+                        {
+                            "name": "位置",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "窗帘开合度",
+                            "data_api_name": "curtain_position_study"
+                        },
+                        {
+                            "name": "定时",
+                            "type": "timer",
+                            "description": "定时设置",
+                            "data_api_name": "curtain_timer_study"
+                        },
+                        {
+                            "name": "场景",
+                            "type": "scene",
+                            "description": "场景模式",
+                            "data_api_name": "curtain_scene_study"
+                        }
+                    ]
                 }
             ]
         },
@@ -866,32 +1394,265 @@
             "name": "阳台",
             "furniture": [
                 {
-                    "name": "扫地机器人",
-                    "type": "清洁",
+                    "name": "智能晾衣架",
+                    "type": "家居",
                     "status": [
                         {
-                            "name": "开启",
+                            "name": "开启状态",
                             "type": "bool",
-                            "description": "开启或关闭扫地机器人",
-                            "data_api_name": "robot_power_balcony"
+                            "description": "晾衣架是否开启",
+                            "data_api_name": "clothesline_power_balcony"
+                        },
+                        {
+                            "name": "高度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "晾衣架高度",
+                            "data_api_name": "clothesline_height_balcony"
+                        },
+                        {
+                            "name": "消毒",
+                            "type": "bool",
+                            "description": "是否开启消毒功能",
+                            "data_api_name": "clothesline_sterilize_balcony"
+                        },
+                        {
+                            "name": "定时",
+                            "type": "timer",
+                            "description": "定时设置",
+                            "data_api_name": "clothesline_timer_balcony"
+                        }
+                    ]
+                },
+                {
+                    "name": "自动浇花系统",
+                    "type": "园艺",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "浇花系统是否开启",
+                            "data_api_name": "watering_power_balcony"
+                        },
+                        {
+                            "name": "水量",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "浇水量大小",
+                            "data_api_name": "watering_amount_balcony"
+                        },
+                        {
+                            "name": "定时",
+                            "type": "timer",
+                            "description": "浇水定时设置",
+                            "data_api_name": "watering_timer_balcony"
+                        },
+                        {
+                            "name": "土壤湿度",
+                            "type": "monitor",
+                            "description": "监测土壤湿度",
+                            "data_api_name": "soil_moisture_balcony"
+                        }
+                    ]
+                },
+                {
+                    "name": "气象监测站",
+                    "type": "环境",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "监测站是否开启",
+                            "data_api_name": "weather_station_power_balcony"
+                        },
+                        {
+                            "name": "天气数据",
+                            "type": "weather",
+                            "description": "天气监测数据",
+                            "data_api_name": "weather_station_data_balcony"
+                        }
+                    ]
+                },
+                {
+                    "name": "电动遮阳棚",
+                    "type": "遮阳",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "遮阳棚是否开启",
+                            "data_api_name": "awning_power_balcony"
                         },
                         {
                             "name": "位置",
-                            "type": "position",
-                            "description": "当前位置",
-                            "data_api_name": "robot_position_balcony"
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "遮阳棚展开程度",
+                            "data_api_name": "awning_position_balcony"
+                        },
+                        {
+                            "name": "自动模式",
+                            "type": "bool",
+                            "description": "是否启用光照自动控制",
+                            "data_api_name": "awning_auto_balcony"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "健身房",
+            "furniture": [
+                {
+                    "name": "智能跑步机",
+                    "type": "健身",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "跑步机是否开启",
+                            "data_api_name": "treadmill_power_gym"
+                        },
+                        {
+                            "name": "速度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                20
+                            ],
+                            "description": "跑步速度(km/h)",
+                            "data_api_name": "treadmill_speed_gym"
+                        },
+                        {
+                            "name": "坡度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                15
+                            ],
+                            "description": "跑步坡度",
+                            "data_api_name": "treadmill_incline_gym"
+                        },
+                        {
+                            "name": "运动记录",
+                            "type": "monitor",
+                            "description": "记录运动数据",
+                            "data_api_name": "treadmill_history_gym"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能按摩椅",
+                    "type": "健身",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "按摩椅是否开启",
+                            "data_api_name": "massage_chair_power_gym"
+                        },
+                        {
+                            "name": "强度",
+                            "type": "int",
+                            "range": [
+                                1,
+                                5
+                            ],
+                            "description": "按摩强度",
+                            "data_api_name": "massage_chair_intensity_gym"
                         },
                         {
                             "name": "模式",
                             "type": "enum",
                             "options": [
-                                "自动",
-                                "定点",
-                                "沿边",
-                                "回充"
+                                "全身",
+                                "颈椎",
+                                "腰部",
+                                "腿部",
+                                "自定义"
                             ],
-                            "description": "选择清扫模式",
-                            "data_api_name": "robot_mode_balcony"
+                            "description": "按摩模式",
+                            "data_api_name": "massage_chair_mode_gym"
+                        },
+                        {
+                            "name": "定时",
+                            "type": "timer",
+                            "description": "按摩定时",
+                            "data_api_name": "massage_chair_timer_gym"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能音响",
+                    "type": "娱乐",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "音响是否开启",
+                            "data_api_name": "speaker_power_gym"
+                        },
+                        {
+                            "name": "音量",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "音量大小",
+                            "data_api_name": "speaker_volume_gym"
+                        },
+                        {
+                            "name": "播放模式",
+                            "type": "enum",
+                            "options": [
+                                "单曲循环",
+                                "列表循环",
+                                "随机播放",
+                                "顺序播放"
+                            ],
+                            "description": "播放模式",
+                            "data_api_name": "speaker_play_mode_gym"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能体测设备",
+                    "type": "健康",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "体测设备是否开启",
+                            "data_api_name": "body_analyzer_power_gym"
+                        },
+                        {
+                            "name": "测量记录",
+                            "type": "monitor",
+                            "description": "体测数据记录",
+                            "data_api_name": "body_analyzer_history_gym"
+                        },
+                        {
+                            "name": "模式",
+                            "type": "enum",
+                            "options": [
+                                "体重",
+                                "体脂",
+                                "肌肉量",
+                                "骨量",
+                                "全面"
+                            ],
+                            "description": "测量模式",
+                            "data_api_name": "body_analyzer_mode_gym"
                         }
                     ]
                 }
@@ -901,24 +1662,356 @@
             "name": "储物间",
             "furniture": [
                 {
-                    "name": "除湿机",
+                    "name": "智能储物柜",
+                    "type": "储物",
+                    "status": [
+                        {
+                            "name": "锁定状态",
+                            "type": "bool",
+                            "description": "储物柜是否锁定",
+                            "data_api_name": "locker_status_storage"
+                        },
+                        {
+                            "name": "使用记录",
+                            "type": "monitor",
+                            "description": "使用历史记录",
+                            "data_api_name": "locker_history_storage"
+                        },
+                        {
+                            "name": "物品管理",
+                            "type": "monitor",
+                            "description": "物品存取记录",
+                            "data_api_name": "locker_items_storage"
+                        }
+                    ]
+                },
+                {
+                    "name": "防霉系统",
                     "type": "环境",
                     "status": [
                         {
-                            "name": "开启",
+                            "name": "开启状态",
                             "type": "bool",
-                            "description": "开启或关闭除湿机",
-                            "data_api_name": "dehumidifier_power_storage"
+                            "description": "防霉系统是否开启",
+                            "data_api_name": "mold_prevention_power_storage"
                         },
                         {
-                            "name": "湿度",
+                            "name": "湿度监测",
+                            "type": "monitor",
+                            "description": "湿度监测记录",
+                            "data_api_name": "mold_prevention_humidity_storage"
+                        },
+                        {
+                            "name": "模式",
+                            "type": "enum",
+                            "options": [
+                                "标准",
+                                "强力",
+                                "节能",
+                                "自动"
+                            ],
+                            "description": "工作模式",
+                            "data_api_name": "mold_prevention_mode_storage"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能密码锁",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "锁定状态",
+                            "type": "bool",
+                            "description": "密码锁是否锁定",
+                            "data_api_name": "password_lock_status_storage"
+                        },
+                        {
+                            "name": "开门记录",
+                            "type": "monitor",
+                            "description": "开门历史记录",
+                            "data_api_name": "password_lock_history_storage"
+                        },
+                        {
+                            "name": "电量",
                             "type": "int",
                             "range": [
-                                30,
-                                80
+                                0,
+                                100
                             ],
-                            "description": "目标湿度",
-                            "data_api_name": "dehumidifier_humidity_storage"
+                            "description": "电池电量",
+                            "data_api_name": "password_lock_battery_storage"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "花园",
+            "furniture": [
+                {
+                    "name": "智能喷灌系统",
+                    "type": "园艺",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "喷灌系统是否开启",
+                            "data_api_name": "irrigation_power_garden"
+                        },
+                        {
+                            "name": "水量",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "喷水量大小",
+                            "data_api_name": "irrigation_flow_garden"
+                        },
+                        {
+                            "name": "定时",
+                            "type": "timer",
+                            "description": "浇水定时",
+                            "data_api_name": "irrigation_timer_garden"
+                        },
+                        {
+                            "name": "分区控制",
+                            "type": "complex",
+                            "description": "不同区域控制",
+                            "data_api_name": "irrigation_zones_garden"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能割草机",
+                    "type": "园艺",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "割草机是否开启",
+                            "data_api_name": "mower_power_garden"
+                        },
+                        {
+                            "name": "工作模式",
+                            "type": "enum",
+                            "options": [
+                                "自动",
+                                "定点",
+                                "边缘",
+                                "回充"
+                            ],
+                            "description": "割草模式",
+                            "data_api_name": "mower_mode_garden"
+                        },
+                        {
+                            "name": "定时",
+                            "type": "timer",
+                            "description": "工作定时",
+                            "data_api_name": "mower_timer_garden"
+                        },
+                        {
+                            "name": "位置",
+                            "type": "position",
+                            "description": "当前位置",
+                            "data_api_name": "mower_position_garden"
+                        }
+                    ]
+                },
+                {
+                    "name": "泳池控制系统",
+                    "type": "泳池",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "系统是否开启",
+                            "data_api_name": "pool_power_garden"
+                        },
+                        {
+                            "name": "水温",
+                            "type": "int",
+                            "range": [
+                                15,
+                                40
+                            ],
+                            "description": "水温控制",
+                            "data_api_name": "pool_temperature_garden"
+                        },
+                        {
+                            "name": "过滤",
+                            "type": "bool",
+                            "description": "过滤系统",
+                            "data_api_name": "pool_filter_garden"
+                        },
+                        {
+                            "name": "水质监测",
+                            "type": "monitor",
+                            "description": "水质数据",
+                            "data_api_name": "pool_water_quality_garden"
+                        }
+                    ]
+                },
+                {
+                    "name": "户外照明",
+                    "type": "照明",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "照明是否开启",
+                            "data_api_name": "outdoor_light_power_garden"
+                        },
+                        {
+                            "name": "亮度",
+                            "type": "int",
+                            "range": [
+                                0,
+                                100
+                            ],
+                            "description": "照明亮度",
+                            "data_api_name": "outdoor_light_brightness_garden"
+                        },
+                        {
+                            "name": "灯光颜色",
+                            "type": "enum",
+                            "options": [
+                                "暖白光",
+                                "自然白",
+                                "冷白光",
+                                "温馨黄",
+                                "浪漫紫",
+                                "清新绿",
+                                "海洋蓝"
+                            ],
+                            "description": "预设灯光颜色",
+                            "data_api_name": "outdoor_light_color_garden"
+                        },
+                        {
+                            "name": "照明场景",
+                            "type": "enum",
+                            "options": [
+                                "日常照明",
+                                "花园派对",
+                                "休闲娱乐",
+                                "安全防护",
+                                "节日氛围"
+                            ],
+                            "description": "预设照明场景",
+                            "data_api_name": "outdoor_light_scene_garden"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "全屋安防",
+            "furniture": [
+                {
+                    "name": "安防主机",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "系统状态",
+                            "type": "bool",
+                            "description": "系统是否启用",
+                            "data_api_name": "security_system_power_house"
+                        },
+                        {
+                            "name": "警戒模式",
+                            "type": "enum",
+                            "options": [
+                                "在家",
+                                "离家",
+                                "夜间",
+                                "假期"
+                            ],
+                            "description": "安防模式",
+                            "data_api_name": "security_system_mode_house"
+                        },
+                        {
+                            "name": "报警记录",
+                            "type": "monitor",
+                            "description": "报警历史",
+                            "data_api_name": "security_system_history_house"
+                        }
+                    ]
+                },
+                {
+                    "name": "监控摄像头",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "开启状态",
+                            "type": "bool",
+                            "description": "摄像头是否开启",
+                            "data_api_name": "camera_power_house"
+                        },
+                        {
+                            "name": "方向",
+                            "type": "direction",
+                            "description": "摄像头方向",
+                            "data_api_name": "camera_direction_house"
+                        },
+                        {
+                            "name": "录像",
+                            "type": "bool",
+                            "description": "是否录像",
+                            "data_api_name": "camera_recording_house"
+                        },
+                        {
+                            "name": "移动侦测",
+                            "type": "bool",
+                            "description": "移动侦测功能",
+                            "data_api_name": "camera_motion_house"
+                        }
+                    ]
+                },
+                {
+                    "name": "智能门禁",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "系统状态",
+                            "type": "bool",
+                            "description": "门禁是否启用",
+                            "data_api_name": "access_control_power_house"
+                        },
+                        {
+                            "name": "访问记录",
+                            "type": "monitor",
+                            "description": "访问历史",
+                            "data_api_name": "access_control_history_house"
+                        },
+                        {
+                            "name": "权限管理",
+                            "type": "complex",
+                            "description": "门禁权限",
+                            "data_api_name": "access_control_permissions_house"
+                        }
+                    ]
+                },
+                {
+                    "name": "紧急求助",
+                    "type": "安防",
+                    "status": [
+                        {
+                            "name": "系统状态",
+                            "type": "bool",
+                            "description": "求助系统是否启用",
+                            "data_api_name": "emergency_power_house"
+                        },
+                        {
+                            "name": "求助记录",
+                            "type": "monitor",
+                            "description": "求助历史",
+                            "data_api_name": "emergency_history_house"
+                        },
+                        {
+                            "name": "联系人",
+                            "type": "complex",
+                            "description": "紧急联系人",
+                            "data_api_name": "emergency_contacts_house"
                         }
                     ]
                 }
