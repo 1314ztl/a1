@@ -1,7 +1,7 @@
 <template>
 	<div class="flex h-screen w-screen overflow-hidden bg-gradient p-8 gap-8">
-		<!-- 左侧聊天区域 -->
-		<div class="w-1/4 flex flex-col bg-white/95 rounded-2xl shadow-2xl overflow-hidden card-hover backdrop-blur-2xl border border-white/20">
+		<!-- 左侧聊天区域 - 扩大宽度 -->
+		<div class="w-2/5 flex flex-col bg-white/95 rounded-2xl shadow-2xl overflow-hidden card-hover backdrop-blur-2xl border border-white/20">
 			<div class="bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 text-white p-6">
 				<h2 class="text-xl font-bold tracking-wide flex items-center gap-3">
 					<span class="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 backdrop-blur">
@@ -50,61 +50,8 @@
 			</div>
 		</div>
 
-		<!-- 中间提示区域 -->
-		<div class="w-1/4 bg-white/95 rounded-2xl shadow-2xl overflow-hidden relative card-hover backdrop-blur-2xl border border-white/20">
-			<div class="absolute inset-0 flex items-center justify-center bg-gradient-radial from-transparent via-white/5 to-white/10">
-				<!-- 初始状态 -->
-				<div v-if="promptState === 'initial'" 
-					class="text-center transform transition-all duration-500 ease-in-out scale-hover">
-					<div class="flex flex-col items-center gap-8">
-						<div class="w-24 h-24 bg-gradient-to-br from-indigo-500 via-blue-500 to-blue-600 rounded-2xl flex items-center justify-center transform rotate-12 hover:rotate-0 transition-all shadow-xl glow-effect">
-							<svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-							</svg>
-						</div>
-						<div class="space-y-2">
-							<p class="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-600">请输入需求</p>
-							<p class="text-gray-500">生成智能控制组件</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- 加载状态 -->
-				<div v-if="promptState === 'loading'" 
-					class="text-center transform transition-all duration-500 ease-in-out">
-					<div class="flex flex-col items-center gap-8">
-						<div class="w-24 h-24 relative">
-							<div class="absolute inset-0 border-4 border-blue-100 rounded-2xl"></div>
-							<div class="absolute inset-0 border-4 border-blue-600 rounded-2xl animate-spin-slow glow-effect" 
-								style="border-top-color: transparent; border-left-color: transparent"></div>
-						</div>
-						<div class="space-y-2">
-							<p class="text-xl font-medium loading-text bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">AI 正在生成</p>
-							<p class="text-gray-500">请稍候...</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- 完成状态 -->
-				<div v-if="promptState === 'done'" 
-					class="text-center transform transition-all duration-500 ease-in-out scale-hover">
-					<div class="flex flex-col items-center gap-8">
-						<div class="w-24 h-24 bg-gradient-to-br from-emerald-500 via-emerald-600 to-green-600 rounded-2xl flex items-center justify-center transform hover:scale-110 transition-all shadow-xl glow-effect">
-							<svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-							</svg>
-						</div>
-						<div class="space-y-2">
-							<p class="text-xl font-medium success-text">生成完成！</p>
-							<p class="text-gray-500">请查看右侧面板</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- 右侧组件展示区域 -->
-		<div class="w-2/4 bg-white/95 rounded-2xl shadow-2xl overflow-hidden relative flex-shrink-0 card-hover backdrop-blur-2xl border border-white/20">
+		<!-- 右侧组件展示区域 - 合并了中间状态框的功能 -->
+		<div class="w-3/5 bg-white/95 rounded-2xl shadow-2xl overflow-hidden relative flex-shrink-0 card-hover backdrop-blur-2xl border border-white/20">
 			<div class="flex flex-col h-full">
 				<!-- 展示区标题 -->
 				<div class="bg-gradient-to-r from-white/95 to-white/90 backdrop-blur-xl border-b border-gray-100/50 p-6">
@@ -120,43 +67,63 @@
 				
 				<!-- 内容区域 -->
 				<div class="flex-1 overflow-auto">
-					<!-- 默认提示界面 -->
-					<div v-if="!hasUserInput" class="h-full flex items-center justify-center bg-gradient-radial from-transparent via-white/5 to-white/10">
-						<div class="text-center p-10 transform hover:scale-105 transition-all max-w-lg">
-							<div class="w-28 h-28 mx-auto mb-8 bg-gradient-to-br from-blue-100 via-indigo-50 to-white rounded-2xl flex items-center justify-center shadow-inner-xl glow-effect-light">
-								<svg class="w-14 h-14 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-								</svg>
-							</div>
-							<h3 class="text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 mb-4">欢迎使用智能控制面板</h3>
-							<p class="text-gray-600 mb-8 text-lg">请在左侧输入您的控制需求<br/>例如："我要控制客厅的灯"</p>
-							<div class="space-y-4 text-sm bg-gradient-to-br from-gray-50/80 to-white/50 p-8 rounded-2xl backdrop-blur-xl shadow-inner">
-								<p class="font-medium text-gray-700 mb-4 text-lg">支持的功能</p>
-								<div class="grid grid-cols-2 gap-4">
-									<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
-										<span class="text-blue-500 flex-shrink-0">✓</span>
-										<span class="text-gray-600">灯光控制（开关、亮度）</span>
+					<transition name="fade" mode="out-in">
+						<!-- 默认提示界面 -->
+						<div v-if="promptState === 'loading'" key="loading" class="h-full flex items-center justify-center bg-gradient-radial from-transparent via-white/5 to-white/10">
+							<div class="text-center transform transition-all duration-500 ease-in-out">
+								<div class="flex flex-col items-center gap-8">
+									<div class="w-24 h-24 relative">
+										<div class="absolute inset-0 border-4 border-blue-100 rounded-2xl"></div>
+										<div class="absolute inset-0 border-4 border-blue-600 rounded-2xl animate-spin-slow glow-effect" 
+											style="border-top-color: transparent; border-left-color: transparent"></div>
 									</div>
-									<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
-										<span class="text-blue-500 flex-shrink-0">✓</span>
-										<span class="text-gray-600">空调控制（温度、模式）</span>
-									</div>
-									<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
-										<span class="text-blue-500 flex-shrink-0">✓</span>
-										<span class="text-gray-600">窗帘控制（开合）</span>
-									</div>
-									<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
-										<span class="text-blue-500 flex-shrink-0">✓</span>
-										<span class="text-gray-600">更多设备支持中...</span>
+									<div class="space-y-2">
+										<p class="text-xl font-medium loading-text bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">AI 正在生成</p>
+										<p class="text-gray-500">请稍候...</p>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- 实际控制界面 -->
-					<div v-else class="h-full relative">
-						<div ref="result" class="absolute inset-0 overflow-auto" v-html="suchIframe"></div>
-					</div>
+						
+						<!-- 实际控制界面 -->
+						<div v-else-if="promptState === 'done' && hasUserInput" key="result" class="h-full relative result-container">
+							<div ref="result" class="absolute inset-0 overflow-auto" v-html="suchIframe"></div>
+						</div>
+						
+						<!-- 默认欢迎界面 -->
+						<div v-else key="welcome" class="h-full flex items-center justify-center bg-gradient-radial from-transparent via-white/5 to-white/10">
+							<div class="text-center p-10 transform hover:scale-105 transition-all max-w-lg">
+								<div class="w-28 h-28 mx-auto mb-8 bg-gradient-to-br from-blue-100 via-indigo-50 to-white rounded-2xl flex items-center justify-center shadow-inner-xl glow-effect-light">
+									<svg class="w-14 h-14 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+									</svg>
+								</div>
+								<h3 class="text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 mb-4">欢迎使用智能控制面板</h3>
+								<p class="text-gray-600 mb-8 text-lg">请在左侧输入您的控制需求<br/>例如："我要控制客厅的灯"</p>
+								<div class="space-y-4 text-sm bg-gradient-to-br from-gray-50/80 to-white/50 p-8 rounded-2xl backdrop-blur-xl shadow-inner">
+									<p class="font-medium text-gray-700 mb-4 text-lg">支持的功能</p>
+									<div class="grid grid-cols-2 gap-4">
+										<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
+											<span class="text-blue-500 flex-shrink-0">✓</span>
+											<span class="text-gray-600">灯光控制（开关、亮度）</span>
+										</div>
+										<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
+											<span class="text-blue-500 flex-shrink-0">✓</span>
+											<span class="text-gray-600">空调控制（温度、模式）</span>
+										</div>
+										<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
+											<span class="text-blue-500 flex-shrink-0">✓</span>
+											<span class="text-gray-600">窗帘控制（开合）</span>
+										</div>
+										<div class="flex items-center gap-3 p-3 rounded-xl bg-white/50 backdrop-blur-sm">
+											<span class="text-blue-500 flex-shrink-0">✓</span>
+											<span class="text-gray-600">更多设备支持中...</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</transition>
 				</div>
 			</div>
 		</div>
@@ -270,39 +237,44 @@ const task1 = ref(async () => {
 	if (!userNeeds.value.trim()) {
 		return;
 	}
-	let promote1 = task1Promote.value+state_data_instance.value.getSense().house.getFurnitureDescribeInEveryRoom();
-	promote1=promote1.replace(userRequire,userNeeds.value);
+	try {
+		let promote1 = task1Promote.value+state_data_instance.value.getSense().house.getFurnitureDescribeInEveryRoom();
+		promote1=promote1.replace(userRequire,userNeeds.value);
 
-	console.log(promote1);
-	await builder.value.callApi(promote1).then((response) => {
-		const jsonStartIndex = response.indexOf(JSONBegin) + JSONBegin.length;
-		const jsonEndIndex = response.indexOf(JSONEnd);
-		const jsonString = response.substring(jsonStartIndex, jsonEndIndex);
-		const jsonResponse = JSON.parse(jsonString);
-        task1Response.value.push({role:"system",content:promote1});
-        task1Response.value.push({ role: "assistant", content: response });
-		try {
-			task2PromoteAdd.value="";
-			jsonResponse.result.forEach((r) => {
-				if (r.furniture) {
-					task2PromoteAdd.value+=("\n在"+r.room_name+"房间,有以下家具\n");
-					r.furniture.forEach((f) => {
-						const furnitureString = Sense.furnitureToString(sense.find({ r: r.room_name, f: f }));
-						if (furnitureString !== undefined) {
-							task2PromoteAdd.value+=furnitureString+"\n";
-						} else {
-							console.warn(`Furniture not found: ${f}`);
-						}
-					});
-				} else {
-					console.warn(`No furniture found for room: ${r.room_name}`);
-				}
-			});
-            
-		} catch (error) {
-			console.error('Error processing response:', error);
-		}
-	});
+		console.log(promote1);
+		await builder.value.callApi(promote1).then((response) => {
+			const jsonStartIndex = response.indexOf(JSONBegin) + JSONBegin.length;
+			const jsonEndIndex = response.indexOf(JSONEnd);
+			const jsonString = response.substring(jsonStartIndex, jsonEndIndex);
+			const jsonResponse = JSON.parse(jsonString);
+			task1Response.value.push({role:"system",content:promote1});
+			task1Response.value.push({ role: "assistant", content: response });
+			try {
+				task2PromoteAdd.value="";
+				jsonResponse.result.forEach((r) => {
+					if (r.furniture) {
+						task2PromoteAdd.value+=("\n在"+r.room_name+"房间,有以下家具\n");
+						r.furniture.forEach((f) => {
+							const furnitureString = Sense.furnitureToString(sense.find({ r: r.room_name, f: f }));
+							if (furnitureString !== undefined) {
+								task2PromoteAdd.value+=furnitureString+"\n";
+							} else {
+								console.warn(`Furniture not found: ${f}`);
+							}
+						});
+					} else {
+						console.warn(`No furniture found for room: ${r.room_name}`);
+					}
+				});
+				
+			} catch (error) {
+				console.error('Error processing response:', error);
+			}
+		});
+	} catch (error) {
+		console.error("Task1执行出错:", error);
+		promptState.value = 'initial';
+	}
 });
 
 onMounted(() => {
@@ -313,65 +285,91 @@ const task2 = ref(async () => {
 	if (!userNeeds.value.trim()) {
 		return;
 	}
-	iframeLoaded.value = false;
-	let promote2 = task2Promote.value + task2PromoteAdd.value + task1PromoteAdd2.value;
-	promote2 = promote2.replace(userRequire, userNeeds.value);
-	console.log(promote2);
+	try {
+		iframeLoaded.value = false;
+		let promote2 = task2Promote.value + task2PromoteAdd.value + task1PromoteAdd2.value;
+		promote2 = promote2.replace(userRequire, userNeeds.value);
+		console.log(promote2);
 
-	return new Promise((resolve) => {
-		builder.value.call_api_multiple(promote2, (result) => {
-			let v = result.value;
-			
-			const htmlStartIndex = v.indexOf(htmlBegin) + htmlBegin.length;
-			const htmlEndIndex = v.indexOf(htmlEnd);
+		return new Promise((resolve) => {
+			builder.value.call_api_multiple(promote2, (result) => {
+				try {
+					let v = result.value;
+					
+					const htmlStartIndex = v.indexOf(htmlBegin) + htmlBegin.length;
+					const htmlEndIndex = v.indexOf(htmlEnd);
 
-			const cssStartIndex = v.indexOf(cssBegin) + cssBegin.length;
-			const cssEndIndex = v.indexOf(cssEnd);
+					const cssStartIndex = v.indexOf(cssBegin) + cssBegin.length;
+					const cssEndIndex = v.indexOf(cssEnd);
 
-			const jsStartIndex = v.indexOf(jsBegin) + jsBegin.length;
-			const jsEndIndex = v.indexOf(jsEnd);
-			let html = v.substring(htmlStartIndex, htmlEndIndex);
-			let css = v.substring(cssStartIndex, cssEndIndex);
-			let js = v.substring(jsStartIndex, jsEndIndex);
+					const jsStartIndex = v.indexOf(jsBegin) + jsBegin.length;
+					const jsEndIndex = v.indexOf(jsEnd);
+					let html = v.substring(htmlStartIndex, htmlEndIndex);
+					let css = v.substring(cssStartIndex, cssEndIndex);
+					let js = v.substring(jsStartIndex, jsEndIndex);
 
-			window.theAiHtml = html;
-			window.theAiCss = css;
-			window.theAiJs = js;
+					window.theAiHtml = html;
+					window.theAiCss = css;
+					window.theAiJs = js;
 
-            task2Response.value.push({ role: "system", content: promote2 });
-            task2Response.value.push({ role: "assistant", content: result.value });
+					task2Response.value.push({ role: "system", content: promote2 });
+					task2Response.value.push({ role: "assistant", content: result.value });
 
+					suchIframe.value = suchIframe.value+ ' ';
+					
+					const timeoutId = setTimeout(() => {
+						if (!iframeLoaded.value) {
+							console.warn('iframe加载超时');
+							iframeLoaded.value = true;
+							resolve();
+						}
+					}, 5000);
 
-            
-			suchIframe.value = suchIframe.value+ ' ';
-			
-			const timeoutId = setTimeout(() => {
-				if (!iframeLoaded.value) {
-					console.warn('iframe加载超时');
-					iframeLoaded.value = true;
+					const handleLoad = () => {
+						clearTimeout(timeoutId);
+						iframeLoaded.value = true;
+						resolve();
+					};
+
+					window.addEventListener('iframeLoaded', handleLoad, { once: true });
+				} catch (error) {
+					console.error("处理API响应时出错:", error);
+					promptState.value = 'initial';
 					resolve();
 				}
-			}, 5000);
-
-			const handleLoad = () => {
-				clearTimeout(timeoutId);
-				iframeLoaded.value = true;
+			}, (error) => {
+				console.error("API调用出错:", error);
+				promptState.value = 'initial';
 				resolve();
-			};
-
-			window.addEventListener('iframeLoaded', handleLoad, { once: true });
-		}, console.log);
-	});
+			});
+		});
+	} catch (error) {
+		console.error("Task2执行出错:", error);
+		promptState.value = 'initial';
+	}
 });
 
 const task12 = ref(async () => {
+	if (!userNeeds.value.trim()) {
+		return;
+	}
+	console.log("设置promptState为loading");
+	promptState.value = 'loading';
+	console.log("当前promptState值:", promptState.value);
 	await task1.value();
 	await task2.value();
-	hasUserInput.value = true;
+	console.log("设置promptState为done");
+	promptState.value = 'done';
+	console.log("当前promptState值:", promptState.value);
+    hasUserInput.value = true;
 });
 
 const handleModify = async()=>{
     const temp = userNeeds.value;
+    if (!temp.trim()) {
+        return;
+    }
+    promptState.value = 'loading';
     const newRequirementPrompt = `用户提出了新的需求："${temp}"。请分析是否需要额外添加的家具，并按如下格式回复：
 ${JSONBegin}
 {
@@ -440,8 +438,11 @@ ${JSONEnd}
         window.theAiJs = js;
 
         suchIframe.value = suchIframe.value+ ' ';
+        promptState.value = 'done';
+        hasUserInput.value = true;
     }).catch((error) => {
         console.error("处理新增需求时出错：", error);
+        promptState.value = 'initial';
     });
 
     return;
@@ -470,9 +471,13 @@ const handleTask12 = async () => {
 	if (!userNeeds.value.trim()) {
 		return;
 	}
+	console.log("设置promptState为loading");
 	promptState.value = 'loading';
+	console.log("当前promptState值:", promptState.value);
 	await task12.value();
+	console.log("设置promptState为done");
 	promptState.value = 'done';
+	console.log("当前promptState值:", promptState.value);
     hasUserInput.value = true;
 };
 
@@ -1121,5 +1126,66 @@ button.button-style::before {
 
 button.button-style:hover::before {
   display: none;
+}
+
+/* 添加过渡效果 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* 加载动画优化 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-center {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* 生成完成动画 */
+@keyframes completionPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.completion-pulse {
+  animation: completionPulse 2s infinite;
+}
+
+/* 结果显示动画 */
+@keyframes resultFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.result-container {
+  animation: resultFadeIn 0.8s ease-out forwards;
 }
 </style>
