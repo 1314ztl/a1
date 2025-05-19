@@ -232,7 +232,7 @@ export default class ComponentBuilder {
     setUserRequire(requirement: string): void {
         this.userRequire = requirement;
     }
-    startBuild(userNeeds) {
+    NO_startBuild(userNeeds) {
         const JSONBegin = "<jsonBegin>";
         const JSONEnd = "<jsonEnd>";
         const htmlBegin = "{htmlBegin}";

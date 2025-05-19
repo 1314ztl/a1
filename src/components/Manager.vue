@@ -33,16 +33,16 @@
 						</div>
 					</div>
 					<div class="flex gap-3">
-						<button @click="handleTask1" 
+						<button @click="handleModify" 
 							class="btn flex-1">
-							<span>分析</span>
+							<span>修改</span>
 						</button>
-						<button @click="handleTask2" 
+						<button @click="handleTask12" 
 							class="btn flex-1">
 							<span>生成</span>
 						</button>
-						<button @click="handleTask12" 
-							class="btn flex-1" style="--fancy-button-gradient-0: #10b981; --fancy-button-gradient-50: #059669; --fancy-button-gradient-100: #047857;">
+						<button  @click="handleTask12 " 
+							class="btn flex-1" style="visibility: hidden; --fancy-button-gradient-0: #10b981; --fancy-button-gradient-50: #059669; --fancy-button-gradient-100: #047857;">
 							<span>一键完成</span>
 						</button>
 					</div>
@@ -165,7 +165,7 @@
 
 <script setup>
 import raceAsync from '../ts/asyncRace';
-import { provide, ref, onMounted } from 'vue';
+import { provide, ref, onMounted, Static } from 'vue';
 import ComponentBuilder from '../ts/ComponentBuilder';
 import State_data_instance from '../js/state_data_instance';
 import Sense from '../js/json_interface';
@@ -262,6 +262,10 @@ const task2Result = ref(null);
 
 const task2Done = ref(false);
 
+// const task1Response = ref([{role,content}]);
+// const task2Response = ref([{role,content}]);
+const task1Response = ref([]);
+const task2Response = ref([]);
 const task1 = ref(async () => {
 	if (!userNeeds.value.trim()) {
 		return;
@@ -275,6 +279,8 @@ const task1 = ref(async () => {
 		const jsonEndIndex = response.indexOf(JSONEnd);
 		const jsonString = response.substring(jsonStartIndex, jsonEndIndex);
 		const jsonResponse = JSON.parse(jsonString);
+        task1Response.value.push({role:"system",content:promote1});
+        task1Response.value.push({ role: "assistant", content: response });
 		try {
 			task2PromoteAdd.value="";
 			jsonResponse.result.forEach((r) => {
@@ -292,6 +298,7 @@ const task1 = ref(async () => {
 					console.warn(`No furniture found for room: ${r.room_name}`);
 				}
 			});
+            
 		} catch (error) {
 			console.error('Error processing response:', error);
 		}
@@ -323,7 +330,6 @@ const task2 = ref(async () => {
 
 			const jsStartIndex = v.indexOf(jsBegin) + jsBegin.length;
 			const jsEndIndex = v.indexOf(jsEnd);
-
 			let html = v.substring(htmlStartIndex, htmlEndIndex);
 			let css = v.substring(cssStartIndex, cssEndIndex);
 			let js = v.substring(jsStartIndex, jsEndIndex);
@@ -332,7 +338,12 @@ const task2 = ref(async () => {
 			window.theAiCss = css;
 			window.theAiJs = js;
 
-			suchIframe.value = suchIframe.value.replace(/\s+$/, '') + ' ';
+            task2Response.value.push({ role: "system", content: promote2 });
+            task2Response.value.push({ role: "assistant", content: result.value });
+
+
+            
+			suchIframe.value = suchIframe.value+ ' ';
 			
 			const timeoutId = setTimeout(() => {
 				if (!iframeLoaded.value) {
@@ -359,6 +370,82 @@ const task12 = ref(async () => {
 	hasUserInput.value = true;
 });
 
+const handleModify = async()=>{
+    const temp = userNeeds.value;
+    const newRequirementPrompt = `用户提出了新的需求："${temp}"。请分析是否需要额外添加的家具，并按如下格式回复：
+${JSONBegin}
+{
+    "result": [
+        {
+            "room_name": "房间名",
+            "furniture": ["新增家居名1", "新增家居名2"]
+        },
+        {
+            "next": "..."
+        }
+    ]
+}
+${JSONEnd}
+如果没有新增内容，请返回空列表。`;
+    let addItem = "";
+    task1Response.value.push({role:"system",content:newRequirementPrompt});
+    await builder.value.callApi_more(task1Response.value).then((response) => {
+        const jsonStartIndex = response.indexOf(JSONBegin) + JSONBegin.length;
+        const jsonEndIndex = response.indexOf(JSONEnd);
+        const jsonString = response.substring(jsonStartIndex, jsonEndIndex);
+        const jsonResponse = JSON.parse(jsonString);
+
+        if (jsonResponse.result.length > 0) {
+            jsonResponse.result.forEach((r) => {
+                if (r.furniture) {
+                    addItem += `\n在${r.room_name}房间，新增以下家具：\n`;
+                    r.furniture.forEach((f) => {
+                        const furnitureString = Sense.furnitureToString(sense.find({ r: r.room_name, f: f }));
+                        if (furnitureString !== undefined) {
+                            addItem += furnitureString + "\n";
+                        } else {
+                            console.warn(`新增家具未找到：${f}`);
+                        }
+                    });
+                }
+            });
+        } else {
+            console.log("没有新增家具需要添加。");
+            addItem = "没有新增家具";
+        }
+        task1Response.value.push({ role: "assistant", content: response });
+    }).catch((error) => {
+        console.error("处理新增需求时出错：", error);
+    });
+
+    const newRequirementPrompt2 = `用户提出了新的请求："${temp}"。这是新增的家具列表：${addItem}。请按之前的格式输出新的页面。`;
+    task2Response.value.push({ role: "system", content: newRequirementPrompt2 });
+
+    await builder.value.callApi_more(task2Response.value).then((response) => {
+        const htmlStartIndex = response.indexOf(htmlBegin) + htmlBegin.length;
+        const htmlEndIndex = response.indexOf(htmlEnd);
+
+        const cssStartIndex = response.indexOf(cssBegin) + cssBegin.length;
+        const cssEndIndex = response.indexOf(cssEnd);
+
+        const jsStartIndex = response.indexOf(jsBegin) + jsBegin.length;
+        const jsEndIndex = response.indexOf(jsEnd);
+
+        let html = response.substring(htmlStartIndex, htmlEndIndex);
+        let css = response.substring(cssStartIndex, cssEndIndex);
+        let js = response.substring(jsStartIndex, jsEndIndex);
+
+        window.theAiHtml = html;
+        window.theAiCss = css;
+        window.theAiJs = js;
+
+        suchIframe.value = suchIframe.value+ ' ';
+    }).catch((error) => {
+        console.error("处理新增需求时出错：", error);
+    });
+
+    return;
+}
 const handleTask1 = async () => {
 	if (!userNeeds.value.trim()) {
 		return;
@@ -386,6 +473,7 @@ const handleTask12 = async () => {
 	promptState.value = 'loading';
 	await task12.value();
 	promptState.value = 'done';
+    hasUserInput.value = true;
 };
 
 const resetView = () => {

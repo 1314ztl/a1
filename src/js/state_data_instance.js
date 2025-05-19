@@ -16,7 +16,6 @@ class BaseStateInstance {
 
   // 公共同步方法
   async syncFromServer() {
-    return;
     try {
       const value = await this._fetchData('GET');
       this.data.setState(value);
@@ -32,7 +31,6 @@ class BaseStateInstance {
 
   // 公共状态设置
   async setState(value) {
-    return;
     try {
       await this._fetchData('SET', value);
       this.data.setState(value);

@@ -1,5 +1,5 @@
 import './assets/main.css'
-import { createApp } from 'vue/dist/vue.esm-bundler.js';
+import { createApp } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library, text } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faHome } from '@fortawesome/free-solid-svg-icons'
