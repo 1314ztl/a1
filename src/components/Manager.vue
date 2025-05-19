@@ -260,13 +260,13 @@ const task2Done = ref(false);
 // const task2Response = ref([{role,content}]);
 const task1Response = ref([]);
 const task2Response = ref([]);
-const task1 = ref(async () => {
-	if (!userNeeds.value.trim()) {
+const task1 = ref(async (inputText) => {
+	if (!inputText || !inputText.trim()) {
 		return;
 	}
 	try {
 		let promote1 = task1Promote.value+state_data_instance.value.getSense().house.getFurnitureDescribeInEveryRoom();
-		promote1=promote1.replace(userRequire,userNeeds.value);
+		promote1=promote1.replace(userRequire,inputText);
 
 		console.log(promote1);
 		await builder.value.callApi(promote1).then((response) => {
@@ -308,14 +308,14 @@ onMounted(() => {
     window.removeEventListener('iframeLoaded', () => {});
 });
 
-const task2 = ref(async () => {
-	if (!userNeeds.value.trim()) {
+const task2 = ref(async (inputText) => {
+	if (!inputText || !inputText.trim()) {
 		return;
 	}
 	try {
 		iframeLoaded.value = false;
 		let promote2 = task2Promote.value + task2PromoteAdd.value + task1PromoteAdd2.value;
-		promote2 = promote2.replace(userRequire, userNeeds.value);
+		promote2 = promote2.replace(userRequire, inputText);
 		console.log(promote2);
 
 		return new Promise((resolve) => {
@@ -380,12 +380,14 @@ const task2 = ref(async () => {
 const chatHistory = ref([]);
 const isGenerating = ref(false);
 
-const task12 = async () => {
-	if (!userNeeds.value.trim()) {
+const task12 = async (inputText) => {
+	if (!inputText || !inputText.trim()) {
 		return;
 	}
-	await task1.value();
-	await task2.value();
+	
+	// 使用传入的inputText而不是userNeeds.value
+	await task1.value(inputText);
+	await task2.value(inputText);
 };
 
 const handleTask12 = async () => {
@@ -399,13 +401,19 @@ const handleTask12 = async () => {
 		content: userNeeds.value
 	});
 	
+	// 保存用户输入内容用于API调用
+	const userInput = userNeeds.value;
+	
+	// 清空输入框
+	userNeeds.value = "";
+	
 	// 显示AI正在生成状态
 	isGenerating.value = true;
 	
 	console.log("设置promptState为loading");
 	promptState.value = 'loading';
 	console.log("当前promptState值:", promptState.value);
-	await task12();
+	await task12(userInput);
 	console.log("设置promptState为done");
 	promptState.value = 'done';
 	console.log("当前promptState值:", promptState.value);
@@ -437,6 +445,9 @@ const handleModify = async() => {
 		type: 'user',
 		content: temp
 	});
+	
+	// 清空输入框
+	userNeeds.value = "";
 	
 	// 显示AI正在生成状态
 	isGenerating.value = true;
@@ -540,22 +551,22 @@ ${JSONEnd}
     });
 };
 
-const handleTask1 = async () => {
-	if (!userNeeds.value.trim()) {
+const handleTask1 = async (inputText) => {
+	if (!inputText || !inputText.trim()) {
 		return;
 	}
 	promptState.value = 'loading';
-	await task1.value();
+	await task1.value(inputText);
 	promptState.value = 'done';
 	hasUserInput.value = true;
 };
 
-const handleTask2 = async () => {
-	if (!userNeeds.value.trim()) {
+const handleTask2 = async (inputText) => {
+	if (!inputText || !inputText.trim()) {
 		return;
 	}
 	promptState.value = 'loading';
-	await task2.value();
+	await task2.value(inputText);
 	hasUserInput.value = true;
 	promptState.value = 'done';
 };
