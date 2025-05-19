@@ -1,4 +1,4 @@
-<template>
+﻿<template>
 	<div class="flex h-screen w-screen overflow-hidden bg-gradient p-8 gap-8">
 		<!-- 左侧聊天区域 - 扩大宽度 -->
 		<div class="w-2/5 flex flex-col bg-white/95 rounded-2xl shadow-2xl overflow-hidden card-hover backdrop-blur-2xl border border-white/20">
@@ -16,6 +16,33 @@
 			<div class="flex-1 overflow-y-auto p-6 custom-scrollbar" id="chatMessages">
 				<div class="mb-4 p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50/50 text-gray-800 max-w-[85%] message-bubble backdrop-blur-sm border border-blue-100/50">
 					您好！我是智能家居助手，请告诉我您需要什么帮助？
+				</div>
+				
+				<!-- 用户消息 -->
+				<div v-for="(message, index) in chatHistory" :key="index" class="mb-4">
+					<!-- 用户消息 -->
+					<div v-if="message.type === 'user'" class="flex justify-end mb-4">
+						<div class="p-5 rounded-2xl bg-gradient-to-br from-indigo-500/90 to-blue-500/90 text-white max-w-[85%] ml-auto message-bubble backdrop-blur-sm border border-indigo-400/30">
+							{{ message.content }}
+						</div>
+					</div>
+					
+					<!-- AI消息 -->
+					<div v-else class="mb-4 p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50/50 text-gray-800 max-w-[85%] message-bubble backdrop-blur-sm border border-blue-100/50">
+						{{ message.content }}
+					</div>
+				</div>
+				
+				<!-- 正在生成的状态 -->
+				<div v-if="isGenerating" class="mb-4 p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50/50 text-gray-800 max-w-[85%] message-bubble backdrop-blur-sm border border-blue-100/50">
+					<div class="flex items-center gap-3">
+						<div class="typing-indicator">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+						<span>AI 正在生成...</span>
+					</div>
 				</div>
 			</div>
 			
@@ -132,7 +159,7 @@
 
 <script setup>
 import raceAsync from '../ts/asyncRace';
-import { provide, ref, onMounted, Static } from 'vue';
+import { provide, ref, onMounted, Static, watch, nextTick } from 'vue';
 import ComponentBuilder from '../ts/ComponentBuilder';
 import State_data_instance from '../js/state_data_instance';
 import Sense from '../js/json_interface';
@@ -349,26 +376,71 @@ const task2 = ref(async () => {
 	}
 });
 
-const task12 = ref(async () => {
+// 添加聊天历史记录和生成状态
+const chatHistory = ref([]);
+const isGenerating = ref(false);
+
+const task12 = async () => {
 	if (!userNeeds.value.trim()) {
 		return;
 	}
+	await task1.value();
+	await task2.value();
+};
+
+const handleTask12 = async () => {
+	if (!userNeeds.value.trim()) {
+		return;
+	}
+	
+	// 添加用户消息到聊天历史
+	chatHistory.value.push({
+		type: 'user',
+		content: userNeeds.value
+	});
+	
+	// 显示AI正在生成状态
+	isGenerating.value = true;
+	
 	console.log("设置promptState为loading");
 	promptState.value = 'loading';
 	console.log("当前promptState值:", promptState.value);
-	await task1.value();
-	await task2.value();
+	await task12();
 	console.log("设置promptState为done");
 	promptState.value = 'done';
 	console.log("当前promptState值:", promptState.value);
     hasUserInput.value = true;
-});
+	
+	// 生成完成后，更新AI消息
+	isGenerating.value = false;
+	chatHistory.value.push({
+		type: 'ai',
+		content: '已生成控制面板，请在右侧查看'
+	});
+	
+	// 滚动到聊天底部
+	await nextTick();
+	const chatContainer = document.getElementById('chatMessages');
+	if (chatContainer) {
+		chatContainer.scrollTop = chatContainer.scrollHeight;
+	}
+};
 
-const handleModify = async()=>{
+const handleModify = async() => {
     const temp = userNeeds.value;
     if (!temp.trim()) {
         return;
     }
+	
+	// 添加用户修改请求到聊天历史
+	chatHistory.value.push({
+		type: 'user',
+		content: temp
+	});
+	
+	// 显示AI正在生成状态
+	isGenerating.value = true;
+	
     promptState.value = 'loading';
     const newRequirementPrompt = `用户提出了新的需求："${temp}"。请分析是否需要额外添加的家具，并按如下格式回复：
 ${JSONBegin}
@@ -440,13 +512,34 @@ ${JSONEnd}
         suchIframe.value = suchIframe.value+ ' ';
         promptState.value = 'done';
         hasUserInput.value = true;
+		
+		// 生成完成后，更新AI消息
+		isGenerating.value = false;
+		chatHistory.value.push({
+			type: 'ai',
+			content: '已根据您的需求修改控制面板，请在右侧查看'
+		});
+		
+		// 滚动到聊天底部
+		nextTick(() => {
+			const chatContainer = document.getElementById('chatMessages');
+			if (chatContainer) {
+				chatContainer.scrollTop = chatContainer.scrollHeight;
+			}
+		});
     }).catch((error) => {
         console.error("处理新增需求时出错：", error);
         promptState.value = 'initial';
+		
+		// 更新错误消息
+		isGenerating.value = false;
+		chatHistory.value.push({
+			type: 'ai',
+			content: '抱歉，处理您的请求时出错了，请重试'
+		});
     });
+};
 
-    return;
-}
 const handleTask1 = async () => {
 	if (!userNeeds.value.trim()) {
 		return;
@@ -465,20 +558,6 @@ const handleTask2 = async () => {
 	await task2.value();
 	hasUserInput.value = true;
 	promptState.value = 'done';
-};
-
-const handleTask12 = async () => {
-	if (!userNeeds.value.trim()) {
-		return;
-	}
-	console.log("设置promptState为loading");
-	promptState.value = 'loading';
-	console.log("当前promptState值:", promptState.value);
-	await task12.value();
-	console.log("设置promptState为done");
-	promptState.value = 'done';
-	console.log("当前promptState值:", promptState.value);
-    hasUserInput.value = true;
 };
 
 const resetView = () => {
@@ -506,6 +585,39 @@ const resetView = () => {
 
 .animate-spin {
     animation: spin 1s linear infinite;
+}
+
+/* 添加打字动画指示器样式 */
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background-color: #bfdbfe;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1.0);
+    }
 }
 
 /* 改善iframe内容显示 */
